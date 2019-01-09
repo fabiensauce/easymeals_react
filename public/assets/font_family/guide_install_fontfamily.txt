@@ -1,0 +1,29 @@
+go to font on https://fonts.google.com
+choose font (ex : Kalam : https://fonts.google.com/specimen/Kalam)
+-> select this font
+-> open tab "family selected"
+
+-> 1. /// EXTRACT .ttf file ///
+->'download select' with the download icon
+-> will generate zip file (here 'Kalam.zip')
+-> unzip and get one .ttf file of your choice (ex: Kalam-Regular.ttf)
+-> save file in assets/font_family/
+
+-> 2. /// create fontface.css linked to .ttf file ///
+-> from google tab  "family selected" get link href (here : https://fonts.googleapis.com/css?family=Kalam) and load it in URL
+-> copy the 'latin' @font-face  HERE :
+@font-face {
+  font-family: 'Kalam';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Kalam'), local('Kalam-Regular'), url(https://fonts.gstatic.com/s/kalam/v8/YA9dr0Wd4kDdMthROCc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+})
+
+-> put in css file (ex: assets/font_family/fontface_kalam.css )
+-> replace URL (https...) by matching .ttf file and FORMAT 'woff2' by 'truetype';
+-> HERE : url('./Kalam-Regular.ttf') format('truetype');
+
+-> 3. /// use ///
+-> add link in index.html : <link href='./assets/font_family/fontface_kalam.css' rel='stylesheet' type='text/css'>
+-> from google tab "family selected", see "Specify in CSS" for CSS use (here : font-family: 'Kalam', cursive;)

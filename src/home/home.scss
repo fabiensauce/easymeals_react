@@ -1,0 +1,15 @@
+.home_container {
+  // background-color: #f2f2f2;
+  // color: #595959;
+  // height: ~"calc(100vh - var(--heightNav))";
+  overflow-y: auto;
+  font-family: "Montserrat", sans-serif;
+  font-size: 22px;
+
+  .quotePhrase {
+    font-family: "Architects Daughter", cursive;
+    font-size: 21px;
+    margin-bottom: 10px;
+    color: cornflowerblue;
+  }
+}

@@ -1,0 +1,25 @@
+.app {
+  background-color: #282c34;
+  color: white;
+  min-height: 100vh;
+}
+.nav {
+  background-color: #ffb366;
+  margin: 0;
+  padding: 0;
+  li {
+    display: inline-block;
+    padding: 25px;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+  li.liEasyMeal {
+    color: #595959;
+    padding: 27px 30px;
+  }
+}
+.route {
+  padding: 20px;
+}
