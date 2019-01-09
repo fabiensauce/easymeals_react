@@ -5,7 +5,7 @@ import "./AppRouter.scss";
 
 import Home from "./home/Home.js";
 import Recipe from "./recipe/ContainerRecipe.js";
-import Planning from "./planning/Planning.js";
+import ContainerPlanning from "./planning/ContainerPlanning.js";
 
 function AppRouter() {
   return (
@@ -20,14 +20,14 @@ function AppRouter() {
             <Link to="/recipe">Recipe</Link>
           </li>
           <li>
-            <Link to="/planning">Planning</Link>
+            <Link to="/planning">ContainerPlanning</Link>
           </li>
         </ul>
 
         <div className="route">
           <Route exact path="/" component={Home} />
           <Route path="/recipe" component={Recipe} />
-          <Route path="/planning" component={Planning} />
+          <Route path="/planning" component={ContainerPlanning} />
         </div>
       </div>
     </Router>
