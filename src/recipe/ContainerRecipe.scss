@@ -6,13 +6,15 @@
     .recipe {
       border: 1px solid #e6e6e6;
       border-radius: 3px;
-      padding: 8px;
+      padding: 8px 12px;
       margin-bottom: 20px;
       .header {
         padding-bottom: 8px;
         border-bottom: 1px solid #e6e6e6;
         .name {
           display: inline-block;
+          text-transform: capitalize;
+          font-size: 20px;
         }
         .right {
           display: inline-block;

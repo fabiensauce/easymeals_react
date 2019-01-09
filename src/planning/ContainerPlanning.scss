@@ -4,6 +4,31 @@
   background: #fff; //#282c34;
   padding-top: 40px;
 
+  .title {
+    width: 950px;
+    margin: auto;
+    margin-bottom: 20px;
+    padding-left: 80px;
+    color: #282c34;
+    .nbPerson {
+      display: inline-block;
+      width: 80px;
+      text-align: center;
+      margin: 0 6px;
+      user-select: none;
+
+      color: #6c7ae0;
+      font-size: 30px;
+    }
+    .nbPersonMinus,
+    .nbPersonPlus {
+      cursor: pointer;
+      margin-right: 6px;
+      font-size: 20px;
+      color: #d7ccff; // #e6e6e6;
+    }
+  }
+
   .wrapPlanning {
     width: 950px;
     margin: auto;

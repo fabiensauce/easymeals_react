@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Recipe({ recipe }) {
   console.log(" recipe ", recipe);
@@ -8,9 +9,19 @@ function Recipe({ recipe }) {
       <div className="header">
         <div className="name">{recipe.name}</div>
         <div className="right">
-          <div className="pers">{recipe.nbPerson} Pers.</div>
-          <div className="favorite">{recipe.isFavorite && "x3"}</div>
-          <div className="addPlanning"> + </div>
+          <div className="pers">
+            <FontAwesomeIcon icon="users" />
+            {" " + recipe.nbPerson}
+          </div>
+          <div className="favorite">
+            {recipe.isFavorite && (
+              <FontAwesomeIcon icon={["fas", "heart"]} color="#ff6666" />
+            )}
+            {!recipe.isFavorite && <FontAwesomeIcon icon={["far", "heart"]} />}
+          </div>
+          <div className="addPlanning">
+            <FontAwesomeIcon icon="plus-square" />
+          </div>
         </div>
       </div>
       <div className="body">

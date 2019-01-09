@@ -1,11 +1,48 @@
 import React, { Component } from "react";
 
 import "./ContainerPlanning.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class ContainerPlanning extends Component {
+  state = {
+    nbPerson: 4,
+    tryState: "",
+    wordToFind: "",
+    wordInProgress: "",
+    usedLetters: [],
+    gameFinsished: false,
+    hasWon: false
+  };
+
+  changeNbPerson(isIncrement) {
+    const { nbPerson } = this.state;
+    if (nbPerson === 1 && !isIncrement) return;
+    let newNbPerson = isIncrement ? nbPerson + 1 : nbPerson - 1;
+    this.setState({ nbPerson: newNbPerson });
+  }
   render() {
     return (
       <div className="containerPlanning">
+        <div className="title">
+          <span
+            className="nbPersonMinus"
+            onClick={() => this.changeNbPerson(false)}
+          >
+            <FontAwesomeIcon icon="minus-circle" />
+          </span>
+
+          <div className="nbPerson">
+            <FontAwesomeIcon icon="users" /> {this.state.nbPerson}
+          </div>
+
+          <span
+            className="nbPersonPlus"
+            onClick={() => this.changeNbPerson(true)}
+          >
+            <FontAwesomeIcon icon="plus-circle" />
+          </span>
+        </div>
+
         <div className="wrapPlanning">
           <div className="table_whole">
             <div className="table_head">

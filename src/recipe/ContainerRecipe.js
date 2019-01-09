@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./ContainerRecipe.scss";
 import { FAKE_RECIPES } from "./data_recipe";
 import ListRecipe from "./ListRecipe";
