@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./AppRouter.scss";
 
 import Home from "./home/Home.js";
-import Recipe from "./recipe/Recipe.js";
+import Recipe from "./recipe/ContainerRecipe.js";
 import Planning from "./planning/Planning.js";
 
 function AppRouter() {

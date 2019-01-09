@@ -4,9 +4,12 @@
   min-height: 100vh;
 }
 .nav {
-  background-color: #ffb366;
+  position: fixed;
+  top: 0;
+  width: 100%;
   margin: 0;
   padding: 0;
+  background-color: #ffb366;
   li {
     display: inline-block;
     padding: 25px;
@@ -21,5 +24,6 @@
   }
 }
 .route {
+  margin-top: 75px;
   padding: 20px;
 }

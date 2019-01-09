@@ -1,0 +1,53 @@
+.containerRecipe {
+  // color: red;
+  .listRecipe {
+    margin: auto;
+    width: 500px;
+    .recipe {
+      border: 1px solid #e6e6e6;
+      border-radius: 3px;
+      padding: 8px;
+      margin-bottom: 20px;
+      .header {
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e6e6e6;
+        .name {
+          display: inline-block;
+        }
+        .right {
+          display: inline-block;
+          float: right;
+          div {
+            display: inline-block;
+            margin-left: 15px;
+          }
+        }
+      }
+      .body {
+        padding-top: 8px;
+        .ingredientList {
+          display: inline-block;
+          width: 170px;
+          vertical-align: top;
+          .ingredient {
+            margin-bottom: 7px;
+          }
+        }
+        .stepList {
+          display: inline-block;
+          max-width: calc(99% - 170px);
+          .step {
+            .stepTitle {
+              // font-weight: 400;
+              color: #ffcc99; // #cccccc;
+            }
+            .stepContent {
+              font-family: "Architects Daughter", cursive;
+            }
+          }
+        }
+      }
+      // color: blue;
+    }
+  }
+}
