@@ -1,55 +1,51 @@
 import React from "react";
 
-const Services = {
-  get: url => {
-    return fetch(url)
-      .then(resp => resp.json())
-      .then(data => data);
-  },
-  post: (url, new_obj) => {
-    console.log("---- POST ------    url", url);
-    console.log("new_obj ", new_obj);
-
-    return fetch(url, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(new_obj)
-    })
-      .then(resp => resp.json())
-      .then(data => data);
-  },
-  put: (url, updated_obj) => {
-    return fetch(url, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(updated_obj)
-    })
-      .then(resp => resp.json())
-      .then(data => data);
-  },
-  delete: url => {
-    return fetch(url, {
-      method: "DELETE"
-    })
-      .then(res => res)
-      .then(err => err);
-  }
-  // deleteBlogPost: id => {
-  //   return fetch("http://api.symfony-3.dev/app_dev.php/posts/" + id, {
-  //     method: "DELETE",
-  //     mode: "CORS"
-  //   })
-  //     .then(res => res)
-  //     .catch(err => err);
-  // }
+const get = url => {
+  return fetch(url)
+    .then(resp => resp.json())
+    .then(data => data);
 };
 
+const post = (url, obj_to_create) => {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(obj_to_create)
+  })
+    .then(resp => resp.json())
+    .then(data => data);
+};
+
+const put = (url, obj_to_update) => {
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(obj_to_update)
+  })
+    .then(resp => resp.json())
+    .then(data => data);
+};
+const delete_ = url => {
+  return fetch(url, {
+    method: "DELETE"
+  })
+    .then(res => res)
+    .then(err => err);
+};
+
+const Services = {
+  createRecipe: recipe => post("http://localhost:3004/recipes", recipe),
+  getRecipes: () => get("http://localhost:3004/recipes"),
+  updateRecipe: (id, recipe) =>
+    put(`http://localhost:3004/recipes/${id}`, recipe),
+  deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`)
+};
 export default Services;
 
 //////////////////

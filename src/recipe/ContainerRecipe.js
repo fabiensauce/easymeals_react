@@ -14,7 +14,7 @@ class ContainerRecipe extends Component {
   componentDidMount() {
     console.log(" euuuhhh component did mount ??? ");
     // GET recipes
-    Services.get("http://localhost:3004/recipes").then(dataRecipes => {
+    Services.getRecipes().then(dataRecipes => {
       this.setState({ recipes: dataRecipes });
     });
   }
@@ -33,29 +33,25 @@ class ContainerRecipe extends Component {
       description: "blablablak",
       steps: ["mix flour and eggs", "add slowly milk"]
     };
-    Services.post("http://localhost:3004/recipes", recipe).then(
-      createdRecipe => {
-        this.setState({ recipes: [...this.state.recipes, createdRecipe] });
-      }
-    );
+    Services.createRecipe(recipe).then(newRecipe => {
+      this.setState({ recipes: [...this.state.recipes, newRecipe] });
+    });
   };
 
   // Arrow fx for binding
   toogleFavorite = recipe => {
     recipe.isFavorite = !recipe.isFavorite;
-    Services.put(`http://localhost:3004/recipes/${recipe.id}`, recipe).then(
-      data => {
-        let newRecipes = [...this.state.recipes];
-        // WORKING without those two line below ...
-        // let newRecipe = _.find(newRecipes, r => r.id === recipe.id);
-        // newRecipe.isFavorite = recipe.isFavorite;
-        this.setState({ recipes: newRecipes });
-      }
-    );
+    Services.updateRecipe(recipe.id, recipe).then(data => {
+      let newRecipes = [...this.state.recipes];
+      // WORKING without those two line below ...
+      // let newRecipe = _.find(newRecipes, r => r.id === recipe.id);
+      // newRecipe.isFavorite = recipe.isFavorite;
+      this.setState({ recipes: newRecipes });
+    });
   };
   // Arrow fx for binding
   deleteRecipe = recipe => {
-    Services.delete(`http://localhost:3004/recipes/${recipe.id}`).then(data => {
+    Services.deleteRecipe(recipe.id).then(data => {
       let newRecipes = _.filter(this.state.recipes, r => r.id !== recipe.id);
       this.setState({ recipes: newRecipes });
     });
