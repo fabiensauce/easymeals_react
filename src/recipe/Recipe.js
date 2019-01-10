@@ -1,25 +1,27 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Recipe({ recipe }) {
-  console.log(" recipe ", recipe);
-
+function Recipe({ recipe, toogleFavorite, deleteRecipe }) {
   return (
     <div className="recipe">
       <div className="header">
         <div className="name">
-          {recipe.name} ({recipe.id})
+          {recipe.name} ({recipe.id}){" "}
         </div>
+        <div className="deleteRecipe" onClick={() => deleteRecipe(recipe)}>
+          <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+        </div>
+
         <div className="right">
           <div className="pers">
             <FontAwesomeIcon icon="users" />
             {" " + recipe.nbPerson}
           </div>
-          <div className="favorite">
-            {recipe.isFavorite && (
-              <FontAwesomeIcon icon={["fas", "heart"]} color="#ff6666" />
-            )}
-            {!recipe.isFavorite && <FontAwesomeIcon icon={["far", "heart"]} />}
+          <div className="favorite" onClick={() => toogleFavorite(recipe)}>
+            <FontAwesomeIcon
+              className={recipe.isFavorite ? "isFavorite" : "notFavorite"}
+              icon={["fas", "heart"]}
+            />
           </div>
           <div className="addPlanning">
             <FontAwesomeIcon icon="plus-square" />

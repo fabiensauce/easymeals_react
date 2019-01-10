@@ -32,7 +32,22 @@ const Services = {
     })
       .then(resp => resp.json())
       .then(data => data);
+  },
+  delete: url => {
+    return fetch(url, {
+      method: "DELETE"
+    })
+      .then(res => res)
+      .then(err => err);
   }
+  // deleteBlogPost: id => {
+  //   return fetch("http://api.symfony-3.dev/app_dev.php/posts/" + id, {
+  //     method: "DELETE",
+  //     mode: "CORS"
+  //   })
+  //     .then(res => res)
+  //     .catch(err => err);
+  // }
 };
 
 export default Services;

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import _ from "lodash";
+
 import "./ContainerRecipe.scss";
 // import { FAKE_RECIPES } from "./data_recipe";
 import ListRecipe from "./ListRecipe";
@@ -10,14 +12,15 @@ class ContainerRecipe extends Component {
   };
 
   componentDidMount() {
+    console.log(" euuuhhh component did mount ??? ");
+    // GET recipes
     Services.get("http://localhost:3004/recipes").then(dataRecipes => {
       this.setState({ recipes: dataRecipes });
     });
-
-    // this.tryModifyRecipe();
   }
 
-  createRecipe() {
+  // Arrow fx for binding
+  createRecipe = () => {
     const recipe = {
       name: "salade CESAR ",
       isFavorite: false,
@@ -35,45 +38,41 @@ class ContainerRecipe extends Component {
         this.setState({ recipes: [...this.state.recipes, createdRecipe] });
       }
     );
-  }
-  updateRecipe(recipe) {
+  };
+
+  // Arrow fx for binding
+  toogleFavorite = recipe => {
+    recipe.isFavorite = !recipe.isFavorite;
     Services.put(`http://localhost:3004/recipes/${recipe.id}`, recipe).then(
       data => {
-        this.setState({ recipes: [...this.state.recipes, data] });
+        let newRecipes = [...this.state.recipes];
+        // WORKING without those two line below ...
+        // let newRecipe = _.find(newRecipes, r => r.id === recipe.id);
+        // newRecipe.isFavorite = recipe.isFavorite;
+        this.setState({ recipes: newRecipes });
       }
     );
-  }
-  tryModifyRecipe() {
-    fetch("http://localhost:3004/recipes/5", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        id: 5,
-        name: "name modified!!!",
-        isFavorite: false,
-        nbPerson: 14,
-        ingredients: [
-          { qty: 3, unit: "g", food: "butter" },
-          { qty: 100, unit: "g", food: "flou" },
-          { qty: 1, unit: "l", food: "milk" }
-        ],
-        description: "blablablak",
-        steps: ["mix flour and eggs", "add slowly milk"]
-      })
+  };
+  // Arrow fx for binding
+  deleteRecipe = recipe => {
+    Services.delete(`http://localhost:3004/recipes/${recipe.id}`).then(data => {
+      let newRecipes = _.filter(this.state.recipes, r => r.id !== recipe.id);
+      this.setState({ recipes: newRecipes });
     });
-  }
+  };
 
   render() {
     return (
       <div className="containerRecipe">
-        <div className="btn" onClick={() => this.createRecipe()}>
+        <div className="btn" onClick={this.createRecipe}>
           {" "}
           create new recipe +{" "}
         </div>
-        <ListRecipe recipes={this.state.recipes} />
+        <ListRecipe
+          recipes={this.state.recipes}
+          toogleFavorite={this.toogleFavorite}
+          deleteRecipe={this.deleteRecipe}
+        />
       </div>
     );
   }

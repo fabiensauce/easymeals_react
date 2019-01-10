@@ -16,12 +16,34 @@
           text-transform: capitalize;
           font-size: 20px;
         }
+        .deleteRecipe {
+          display: inline-block;
+          cursor: pointer;
+          margin-left: 10px;
+          font-size: 15px;
+        }
+        .deleteRecipe:hover {
+          color: #ff9999;
+        }
         .right {
           display: inline-block;
           float: right;
           div {
             display: inline-block;
             margin-left: 15px;
+          }
+          .favorite {
+            cursor: pointer;
+            .isFavorite {
+              color: #ff8080;
+            }
+            .notFavorite {
+              color: #cccccc;
+            }
+            // .isFavorite:hover,
+            // .notFavorite:hover {
+            //   color: #ffb3b3;
+            // }
           }
         }
       }

@@ -1,26 +1,9 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
   "recipes": [
     {
       "id": 0,
       "name": "crepes",
-      "isFavorite": false,
+      "isFavorite": true,
       "nbPerson": 2,
       "ingredients": [
         {
@@ -48,7 +31,7 @@
     {
       "id": 1,
       "name": "lasagna",
-      "isFavorite": false,
+      "isFavorite": true,
       "nbPerson": 4,
       "ingredients": [
         {
@@ -158,230 +141,6 @@
       ]
     },
     {
-      "id": 4,
-      "name": "new recipe",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ]
-    },
-    {
-      "id": 5,
-      "name": "name modified!!!",
-      "isFavorite": false,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ]
-    },
-    {
-      "id": 7,
-      "name": "new recipe",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ]
-    },
-    {
-      "id": 8,
-      "name": "new recipe",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ]
-    },
-    {
-      "id": 9,
-      "name": "new recipe",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ]
-    },
-    {
-      "id": 10,
-      "name": "new recipe",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ]
-    },
-    {
-      "name": "new recipe 99595",
-      "isFavorite": false,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
-      "id": 11
-    },
-    {
-      "name": "salade",
-      "isFavorite": false,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
-      "id": 12
-    },
-    {
       "name": "salade CESAR ",
       "isFavorite": false,
       "nbPerson": 14,
@@ -407,7 +166,7 @@
         "mix flour and eggs",
         "add slowly milk"
       ],
-      "id": 13
+      "id": 4
     }
   ]
 }
