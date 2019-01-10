@@ -7,7 +7,9 @@ function Recipe({ recipe }) {
   return (
     <div className="recipe">
       <div className="header">
-        <div className="name">{recipe.name}</div>
+        <div className="name">
+          {recipe.name} ({recipe.id})
+        </div>
         <div className="right">
           <div className="pers">
             <FontAwesomeIcon icon="users" />

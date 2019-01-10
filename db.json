@@ -1,0 +1,413 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "recipes": [
+    {
+      "id": 0,
+      "name": "crepes",
+      "isFavorite": false,
+      "nbPerson": 2,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "egg"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "easy to do... start with the eggs and flour then add milk",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "lasagna",
+      "isFavorite": false,
+      "nbPerson": 4,
+      "ingredients": [
+        {
+          "qty": 500,
+          "unit": "g",
+          "food": "steak"
+        },
+        {
+          "qty": 200,
+          "unit": "g",
+          "food": "pasata lasagna"
+        },
+        {
+          "qty": 100,
+          "unit": "cl",
+          "food": "creme fraiche"
+        },
+        {
+          "qty": 50,
+          "unit": "g",
+          "food": "parmesan"
+        }
+      ],
+      "description": "",
+      "steps": [
+        "cook in a pan steak with tomato sauce",
+        "when ready put in container some meet",
+        "put slices of pasta",
+        "recover with creme",
+        "add another layer of pasta",
+        "put meat",
+        "put cheese on the top"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "burritos",
+      "isFavorite": true,
+      "nbPerson": 4,
+      "ingredients": [
+        {
+          "qty": 500,
+          "unit": "g",
+          "food": "steak"
+        },
+        {
+          "qty": 1,
+          "unit": "",
+          "food": "spice mix packet"
+        },
+        {
+          "qty": 8,
+          "unit": "",
+          "food": "tortilla"
+        },
+        {
+          "qty": 1,
+          "unit": "",
+          "food": "avocado"
+        },
+        {
+          "qty": 1,
+          "unit": "",
+          "food": "salad"
+        },
+        {
+          "qty": 2,
+          "unit": "",
+          "food": "tomato"
+        }
+      ],
+      "description": "",
+      "steps": [
+        "cook in a pan steak",
+        "when it is almost cook add 20 cl of water and the spice mix packet",
+        "in the meantime prepare the salad and cut in little squares tomatos and avocado",
+        "when ready put torillas in microwaves",
+        "mix in your plates meat with salad tomato and avocado"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "KABOOMMM",
+      "isFavorite": false,
+      "nbPerson": 19,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "kg",
+          "food": "of CRAZY"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "easy to do... start with the eggs and flour then add milk",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "new recipe",
+      "isFavorite": true,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "easy to do... start with the eggs and flour then add milk",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "name modified!!!",
+      "isFavorite": false,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "new recipe",
+      "isFavorite": true,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "new recipe",
+      "isFavorite": true,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "new recipe",
+      "isFavorite": true,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "new recipe",
+      "isFavorite": true,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ]
+    },
+    {
+      "name": "new recipe 99595",
+      "isFavorite": false,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "id": 11
+    },
+    {
+      "name": "salade",
+      "isFavorite": false,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "id": 12
+    },
+    {
+      "name": "salade CESAR ",
+      "isFavorite": false,
+      "nbPerson": 14,
+      "ingredients": [
+        {
+          "qty": 3,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 100,
+          "unit": "g",
+          "food": "flou"
+        },
+        {
+          "qty": 1,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "description": "blablablak",
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "id": 13
+    }
+  ]
+}
