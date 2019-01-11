@@ -1,8 +1,10 @@
 import React from "react";
-import MealsBox from "./MealsBox";
+import Meal from "./Meal";
 
-function Planning({ planning }) {
-  console.log("COMPOIET Eplanning ------ ", planning);
+function Planning({ meals }) {
+  const isLunch = idMeal => idMeal < 20;
+  const isDinner = idMeal => idMeal >= 20;
+
   return (
     <div className="wrapPlanning">
       <div className="table_whole">
@@ -27,23 +29,21 @@ function Planning({ planning }) {
             <tbody>
               <tr className="rowLunch">
                 <th>Lunch</th>
-                {planning.lunchs.map((recipes, index) => (
-                  <MealsBox
-                    className="mealsBox"
-                    key={index}
-                    recipes={recipes}
-                  />
-                ))}
+                {meals.map(
+                  (meal, index) =>
+                    isLunch(meal.id) && (
+                      <Meal className="mealsBox" key={index} meal={meal} />
+                    )
+                )}
               </tr>
               <tr className="rowDinner">
                 <th>Dinner</th>
-                {planning.dinners.map((recipes, index) => (
-                  <MealsBox
-                    className="mealsBox"
-                    key={index}
-                    recipes={recipes}
-                  />
-                ))}
+                {meals.map(
+                  (meal, index) =>
+                    isDinner(meal.id) && (
+                      <Meal className="mealsBox" key={index} meal={meal} />
+                    )
+                )}
               </tr>
             </tbody>
           </table>

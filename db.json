@@ -1,8 +1,67 @@
 {
-  "planning": {
-    "lunchs": [[], [], [], [1, 0], [], [], []],
-    "dinners": [[], [], [3], [], [2], [], []]
-  },
+  "meals": [
+    {
+      "id": 10,
+      "recipes": []
+    },
+    {
+      "id": 11,
+      "recipes": []
+    },
+    {
+      "id": 12,
+      "recipes": []
+    },
+    {
+      "id": 13,
+      "recipes": []
+    },
+    {
+      "id": 14,
+      "recipes": []
+    },
+    {
+      "id": 15,
+      "recipes": []
+    },
+    {
+      "id": 16,
+      "recipes": []
+    },
+    {
+      "id": 20,
+      "recipes": []
+    },
+    {
+      "id": 21,
+      "recipes": []
+    },
+    {
+      "id": 22,
+      "recipes": []
+    },
+    {
+      "id": 23,
+      "recipes": [
+        16,
+        4,
+        0,
+        2
+      ]
+    },
+    {
+      "id": 24,
+      "recipes": []
+    },
+    {
+      "id": 25,
+      "recipes": []
+    },
+    {
+      "id": 26,
+      "recipes": []
+    }
+  ],
   "recipes": [
     {
       "id": 0,
@@ -27,8 +86,11 @@
         }
       ],
       "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "isIntoPlanning": false
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "isIntoPlanning": true
     },
     {
       "id": 1,
@@ -67,7 +129,7 @@
         "put meat",
         "put cheese on the top"
       ],
-      "isIntoPlanning": true
+      "isIntoPlanning": false
     },
     {
       "id": 2,
@@ -139,7 +201,11 @@
         }
       ],
       "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": ["mix flour and eggs", "add slowly milk"]
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "isIntoPlanning": false
     },
     {
       "name": "salade CESAR ",
@@ -163,33 +229,12 @@
         }
       ],
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 4
-    },
-    {
-      "name": "salade CESAR ",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
       ],
-      "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 5
+      "id": 4,
+      "isIntoPlanning": true
     },
     {
       "name": "pizza",
@@ -213,8 +258,12 @@
         }
       ],
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 15
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "id": 15,
+      "isIntoPlanning": false
     },
     {
       "name": "omelette",
@@ -238,8 +287,12 @@
         }
       ],
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 16
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
+      "id": 16,
+      "isIntoPlanning": true
     },
     {
       "name": "haricot poisson",
@@ -263,58 +316,12 @@
         }
       ],
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 17
-    },
-    {
-      "name": "salade CESAR ",
-      "isFavorite": false,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
       ],
-      "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 6
-    },
-    {
-      "name": "salade CESAR ",
-      "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
-      "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
-      "id": 14
+      "id": 17,
+      "isIntoPlanning": false
     }
   ]
 }

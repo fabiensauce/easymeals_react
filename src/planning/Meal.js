@@ -1,12 +1,12 @@
 import React from "react";
 
-function MealsBox({ recipes }) {
+function Meal({ meal }) {
   return (
     <td className="mealsBox">
       <div className="divMeals">
-        {recipes.map((recipe, index) => (
+        {meal.recipes.map((recipe, index) => (
           <div className="meal" key={index}>
-            {recipe.name}
+            {recipe.name} _ {recipe.id}
           </div>
         ))}
       </div>
@@ -14,4 +14,4 @@ function MealsBox({ recipes }) {
   );
 }
 
-export default MealsBox;
+export default Meal;

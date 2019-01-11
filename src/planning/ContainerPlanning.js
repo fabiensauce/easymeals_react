@@ -18,16 +18,14 @@ class ContainerPlanning extends Component {
   };
 
   render() {
-    console.log("COMPONENT ContainerPlanning ------ ", this.props.planning);
-
-    const { planning } = this.props;
+    const { meals } = this.props;
     return (
       <div className="containerPlanning">
         <ChooseNbPerson
           nbPerson={this.state.nbPerson}
           changeNbPerson={this.changeNbPerson}
         />
-        <Planning planning={planning} />
+        <Planning meals={meals} />
       </div>
     );
   }

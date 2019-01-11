@@ -16,43 +16,47 @@ library.add(fas, far);
 class AppRouter extends Component {
   state = {
     recipes: [],
-    planning_id: undefined,
-    //  {
-    //   lunchs: [[], [], [], [1, 0], [], [], []],
-    //   dinners: [[], [], [3], [], [2], [], []]
-    // },
-    planning: {
-      lunchs: [[], [], [], [], [], [], []],
-      dinners: [[], [], [], [], [], [], []]
-    }
+    meals_id: [],
+    meals: [
+      { id: 10, recipes: [] },
+      { id: 11, recipes: [] },
+      { id: 12, recipes: [] },
+      { id: 13, recipes: [] },
+      { id: 14, recipes: [] },
+      { id: 15, recipes: [] },
+      { id: 16, recipes: [] },
+
+      { id: 20, recipes: [] },
+      { id: 21, recipes: [] },
+      { id: 22, recipes: [] },
+      { id: 23, recipes: [] },
+      { id: 24, recipes: [] },
+      { id: 25, recipes: [] },
+      { id: 26, recipes: [] }
+    ]
   };
   componentDidMount() {
-    console.log(" --AppRouter-- componentDidMount() ");
-
     Services.getRecipes().then(dataRecipes => {
-      Services.getPlanning().then(dataPlanning_id => {
-        const newPlanning = this.mapPlanning_withRecipes(
-          dataPlanning_id,
-          dataRecipes
-        );
+      Services.getMeals().then(dataMeals_id => {
+        const newMeals = this.mapMeals_withRecipes(dataMeals_id, dataRecipes);
         this.setState({
           recipes: dataRecipes,
-          planning_id: dataPlanning_id,
-          planning: newPlanning
+          meals_id: dataMeals_id,
+          meals: newMeals
         });
       });
     });
   }
 
-  mapPlanning_withRecipes(planning_id, recipes) {
-    return {
-      lunchs: _.map(planning_id.lunchs, idsRecipe =>
-        _.map(idsRecipe, idRecipe => _.find(recipes, r => r.id === idRecipe))
-      ),
-      dinners: _.map(planning_id.dinners, idsRecipe =>
-        _.map(idsRecipe, idRecipe => _.find(recipes, r => r.id === idRecipe))
-      )
-    };
+  mapMeals_withRecipes(meals_id, recipes) {
+    return _.map(meals_id, meal_id => {
+      return {
+        id: meal_id.id,
+        recipes: _.map(meal_id.recipes, idRecipe =>
+          _.find(recipes, r => r.id === idRecipe)
+        )
+      };
+    });
   }
 
   // Arrow fx for binding
@@ -85,77 +89,41 @@ class AppRouter extends Component {
     });
   };
   // Arrow fx for binding
-  addRecipeIntoPlanning = (recipe, keyRow, index) => {
-    recipe.isIntoPlanning = true;
-    Services.updateRecipe(recipe.id, recipe).then(data => {
-      this.setState({ recipes: [...this.state.recipes] });
-    });
-
-    let newPlanning_id = this.state.planning_id;
-    newPlanning_id[keyRow][index].push(recipe.id);
-    console.log("newPlanning_id ", newPlanning_id);
-    fetch("http://localhost:3004/planning", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newPlanning_id)
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log("return data data ", data);
-        const newPlanning = this.mapPlanning_withRecipes(
-          newPlanning_id,
-          this.state.recipes
-        );
-        this.setState({
-          planning_id: newPlanning_id,
-          planning: newPlanning
-        });
-      });
-
-    // Services.updatePlaning(newPlanning_id).then(data => {
-    //   const newPlanning = this.mapPlanning_withRecipes(
-    //     newPlanning_id,
-    //     this.state.recipes
-    //   );
-    //   this.setState({
-    //     planning_id: newPlanning_id,
-    //     planning: newPlanning
-    //   });
-    // });
-  };
-  // Arrow fx for binding
-  removeRecipeFromPlanning = recipe => {
-    recipe.isIntoPlanning = false;
-    Services.updateRecipe(recipe.id, recipe).then(data => {
-      this.setState({ recipes: [...this.state.recipes] });
-    });
-
-    let newPlanning_id = this.state.planning_id;
-    _.map(newPlanning_id.lunchs, idsRecipe => {
-      _.remove(idsRecipe, id => id === recipe.id);
-    });
-    _.map(newPlanning_id.dinners, idsRecipe => {
-      _.remove(idsRecipe, id => id === recipe.id);
-    });
-    // Services.updatePlaning(newPlanning_id).then(data => {
-    //   const newPlanning = this.mapPlanning_withRecipes(
-    //     newPlanning_id,
-    //     this.state.recipes
-    //   );
-    //   this.setState({
-    //     planning_id: newPlanning_id,
-    //     planning: newPlanning
-    //   });
-    // });
-  };
-  // Arrow fx for binding
   deleteRecipe = recipe => {
     Services.deleteRecipe(recipe.id).then(data => {
       let newRecipes = _.filter(this.state.recipes, r => r.id !== recipe.id);
       this.setState({ recipes: newRecipes });
+    });
+  };
+
+  // // Arrow fx for binding
+  addRecipeIntoPlanning = (recipe, idMeal) => {
+    recipe.isIntoPlanning = true;
+    const { recipes, meals_id } = this.state;
+    let newMeal_id = _.find(meals_id, meal_id => meal_id.id === idMeal);
+    newMeal_id.recipes.push(recipe.id);
+    const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
+    Services.updateRecipe(recipe.id, recipe).then(data => {
+      Services.updateMeal(newMeal_id.id, newMeal_id).then(data => {
+        this.setState({ recipes, meals_id, meals: newMeals });
+      });
+    });
+  };
+  // // Arrow fx for binding
+  removeRecipeFromPlanning = recipe => {
+    recipe.isIntoPlanning = false;
+    const { recipes, meals_id } = this.state;
+    let newMeal_id = _.find(meals_id, meal_id => {
+      if (_.indexOf(meal_id.recipes, recipe.id) !== -1) {
+        _.remove(meal_id.recipes, id => id === recipe.id);
+        return true;
+      } else return false;
+    });
+    const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
+    Services.updateRecipe(recipe.id, recipe).then(() => {
+      Services.updateMeal(newMeal_id.id, newMeal_id).then(() => {
+        this.setState({ recipes, meals_id, meals: newMeals });
+      });
     });
   };
 
@@ -196,7 +164,7 @@ class AppRouter extends Component {
             <Route
               path="/planning"
               render={props => (
-                <ContainerPlanning {...props} planning={this.state.planning} />
+                <ContainerPlanning {...props} meals={this.state.meals} />
               )}
             />
           </div>

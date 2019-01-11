@@ -44,17 +44,7 @@ const Services = {
     put(`http://localhost:3004/recipes/${id}`, recipe),
   deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`),
 
-  getPlanning: id => get(`http://localhost:3004/planning`),
-  updatePlaning: planning => post(`http://localhost:3004/planning`, planning)
+  getMeals: () => get(`http://localhost:3004/meals`),
+  updateMeal: (id, meal) => put(`http://localhost:3004/meals/${id}`, meal)
 };
 export default Services;
-
-//////////////////
-// ex :  import Services, { get2, post2 } from './services'
-//////////////////
-// export function get2(url) {
-//   console.log(" ---- GET 2 ------   url ", url);
-// }
-// export function post2(url, new_obj) {
-//   console.log("---- POST 2------    url", url);
-// }
