@@ -1,5 +1,3 @@
-import React from "react";
-
 const get = url => {
   return fetch(url)
     .then(resp => resp.json())
@@ -44,7 +42,9 @@ const Services = {
   getRecipes: () => get("http://localhost:3004/recipes"),
   updateRecipe: (id, recipe) =>
     put(`http://localhost:3004/recipes/${id}`, recipe),
-  deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`)
+  deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`),
+
+  getPlanning: id => get(`http://localhost:3004/planning`)
 };
 export default Services;
 

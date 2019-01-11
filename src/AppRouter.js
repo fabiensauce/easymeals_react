@@ -15,17 +15,44 @@ library.add(fas, far);
 
 class AppRouter extends Component {
   state = {
-    recipes: []
+    recipes: [],
+    planning_id: undefined,
+    //  {
+    //   lunchs: [[], [], [], [1, 0], [], [], []],
+    //   dinners: [[], [], [3], [], [2], [], []]
+    // },
+    planning: {
+      lunchs: [[], [], [], [], [], [], []],
+      dinners: [[], [], [], [], [], [], []]
+    }
   };
   componentDidMount() {
     console.log(" --AppRouter-- componentDidMount() ");
 
     Services.getRecipes().then(dataRecipes => {
-      this.setState({ recipes: dataRecipes });
+      Services.getPlanning().then(dataPlanning_id => {
+        const newPlanning = {
+          lunchs: _.map(dataPlanning_id.lunchs, idsRecipe =>
+            _.map(idsRecipe, idRecipe =>
+              _.find(dataRecipes, r => r.id === idRecipe)
+            )
+          ),
+          dinners: _.map(dataPlanning_id.dinners, idsRecipe =>
+            _.map(idsRecipe, idRecipe =>
+              _.find(dataRecipes, r => r.id === idRecipe)
+            )
+          )
+        };
+        this.setState({
+          recipes: dataRecipes,
+          planning_id: dataPlanning_id,
+          planning: newPlanning
+        });
+      });
     });
   }
 
-  // // Arrow fx for binding
+  // Arrow fx for binding
   createRecipe = () => {
     const recipe = {
       name: "salade CESAR ",
@@ -95,6 +122,7 @@ class AppRouter extends Component {
 
           <div className="route">
             <Route exact path="/" component={Home} />
+            <div />
             <Route
               path="/recipe"
               render={props => (
@@ -109,7 +137,12 @@ class AppRouter extends Component {
                 />
               )}
             />
-            <Route path="/planning" component={ContainerPlanning} />
+            <Route
+              path="/planning"
+              render={props => (
+                <ContainerPlanning {...props} planning={this.state.planning} />
+              )}
+            />
           </div>
         </div>
       </Router>

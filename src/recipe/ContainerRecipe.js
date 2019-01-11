@@ -5,8 +5,7 @@ import "./ContainerRecipe.scss";
 import ListRecipe from "./ListRecipe";
 
 class ContainerRecipe extends Component {
-  // state = {
-  // };
+  // state = {};
   // componentDidMount() {
   //   // console.log(" euuuhhh component did mount ??? ");
   // }
