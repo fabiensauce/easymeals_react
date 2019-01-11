@@ -26,7 +26,7 @@ library.add(fas, far);
 function AppRouter() {
   return (
     <Router>
-      <div className="app">
+      <div className="appRouter">
         <ul className="nav">
           <li className="liEasyMeal">EasyMeals</li>
           <li>

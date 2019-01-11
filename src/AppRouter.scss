@@ -1,28 +1,36 @@
-.app {
-  background-color: #282c34;
-  color: white;
-  min-height: 100vh;
-}
-.nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
+body {
   margin: 0;
   padding: 0;
-  background-color: #ffb366;
-  li {
-    display: inline-block;
-    padding: 25px;
-    a {
-      text-decoration: none;
-      color: white;
+  font-family: "Fira Sans", "Montserrat", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.appRouter {
+  background-color: #282c34;
+  color: white;
+  // min-height: 100vh;
+  .nav {
+    position: fixed;
+    top: 0;
+    height: 76px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffb366;
+    li {
+      display: inline-block;
+      padding: 25px;
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+    li.liEasyMeal {
+      color: #595959;
+      padding: 27px 30px;
     }
   }
-  li.liEasyMeal {
-    color: #595959;
-    padding: 27px 30px;
+  .route {
+    margin-top: 75px;
   }
-}
-.route {
-  margin-top: 75px;
 }

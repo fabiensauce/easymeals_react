@@ -5,13 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class ContainerPlanning extends Component {
   state = {
-    nbPerson: 4,
-    tryState: "",
-    wordToFind: "",
-    wordInProgress: "",
-    usedLetters: [],
-    gameFinsished: false,
-    hasWon: false
+    nbPerson: 4
   };
 
   changeNbPerson(isIncrement) {
@@ -42,7 +36,6 @@ class ContainerPlanning extends Component {
             <FontAwesomeIcon icon="plus-circle" />
           </span>
         </div>
-
         <div className="wrapPlanning">
           <div className="table_whole">
             <div className="table_head">

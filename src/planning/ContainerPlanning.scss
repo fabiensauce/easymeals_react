@@ -1,9 +1,9 @@
 .containerPlanning {
   width: 100%;
-  min-height: 100vh;
+  // min-height: calc(100vh - 76px);
   background: #fff; //#282c34;
   padding-top: 40px;
-
+  color: #808080;
   .title {
     width: 950px;
     margin: auto;
