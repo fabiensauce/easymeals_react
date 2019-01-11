@@ -41,7 +41,7 @@ function Recipe({
           ) : (
             <div
               className="addIntoPlanning"
-              onClick={() => addRecipeIntoPlanning(recipe)}
+              onClick={() => addRecipeIntoPlanning(recipe, "lunchs", 1)}
             >
               <FontAwesomeIcon icon="plus-square" />
             </div>

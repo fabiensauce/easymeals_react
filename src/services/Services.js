@@ -44,7 +44,8 @@ const Services = {
     put(`http://localhost:3004/recipes/${id}`, recipe),
   deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`),
 
-  getPlanning: id => get(`http://localhost:3004/planning`)
+  getPlanning: id => get(`http://localhost:3004/planning`),
+  updatePlaning: planning => post(`http://localhost:3004/planning`, planning)
 };
 export default Services;
 
