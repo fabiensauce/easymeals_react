@@ -1,73 +1,35 @@
 import React, { Component } from "react";
-import _ from "lodash";
 
 import "./ContainerRecipe.scss";
 // import { FAKE_RECIPES } from "./data_recipe";
 import ListRecipe from "./ListRecipe";
-import Services from "../services/Services";
 
 class ContainerRecipe extends Component {
-  state = {
-    recipes: []
-  };
-
-  componentDidMount() {
-    console.log(" euuuhhh component did mount ??? ");
-    // GET recipes
-    Services.getRecipes().then(dataRecipes => {
-      this.setState({ recipes: dataRecipes });
-    });
-  }
-
-  // Arrow fx for binding
-  createRecipe = () => {
-    const recipe = {
-      name: "salade CESAR ",
-      isFavorite: false,
-      nbPerson: 14,
-      ingredients: [
-        { qty: 3, unit: "g", food: "butter" },
-        { qty: 100, unit: "g", food: "flou" },
-        { qty: 1, unit: "l", food: "milk" }
-      ],
-      description: "blablablak",
-      steps: ["mix flour and eggs", "add slowly milk"]
-    };
-    Services.createRecipe(recipe).then(newRecipe => {
-      this.setState({ recipes: [...this.state.recipes, newRecipe] });
-    });
-  };
-
-  // Arrow fx for binding
-  toogleFavorite = recipe => {
-    recipe.isFavorite = !recipe.isFavorite;
-    Services.updateRecipe(recipe.id, recipe).then(data => {
-      let newRecipes = [...this.state.recipes];
-      // WORKING without those two line below ...
-      // let newRecipe = _.find(newRecipes, r => r.id === recipe.id);
-      // newRecipe.isFavorite = recipe.isFavorite;
-      this.setState({ recipes: newRecipes });
-    });
-  };
-  // Arrow fx for binding
-  deleteRecipe = recipe => {
-    Services.deleteRecipe(recipe.id).then(data => {
-      let newRecipes = _.filter(this.state.recipes, r => r.id !== recipe.id);
-      this.setState({ recipes: newRecipes });
-    });
-  };
-
+  // state = {
+  // };
+  // componentDidMount() {
+  //   // console.log(" euuuhhh component did mount ??? ");
+  // }
   render() {
+    const {
+      recipes,
+      createRecipe,
+      toogleFavorite,
+      addRecipeIntoPlanning,
+      removeRecipeFromPlanning,
+      deleteRecipe
+    } = this.props;
     return (
       <div className="containerRecipe">
-        <div className="btn" onClick={this.createRecipe}>
-          {" "}
-          create new recipe +{" "}
+        <div className="btn" onClick={createRecipe}>
+          create new recipe +
         </div>
         <ListRecipe
-          recipes={this.state.recipes}
-          toogleFavorite={this.toogleFavorite}
-          deleteRecipe={this.deleteRecipe}
+          recipes={recipes}
+          toogleFavorite={toogleFavorite}
+          addRecipeIntoPlanning={addRecipeIntoPlanning}
+          removeRecipeFromPlanning={removeRecipeFromPlanning}
+          deleteRecipe={deleteRecipe}
         />
       </div>
     );

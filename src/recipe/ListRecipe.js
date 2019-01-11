@@ -1,7 +1,13 @@
 import React from "react";
 import Recipe from "./recipe";
 
-function ListRecipe({ recipes, toogleFavorite, deleteRecipe }) {
+function ListRecipe({
+  recipes,
+  toogleFavorite,
+  addRecipeIntoPlanning,
+  removeRecipeFromPlanning,
+  deleteRecipe
+}) {
   return (
     <div className="listRecipe">
       {recipes.map((recipe, index) => (
@@ -10,6 +16,8 @@ function ListRecipe({ recipes, toogleFavorite, deleteRecipe }) {
           key={recipe.id}
           recipe={recipe}
           toogleFavorite={toogleFavorite}
+          addRecipeIntoPlanning={addRecipeIntoPlanning}
+          removeRecipeFromPlanning={removeRecipeFromPlanning}
           deleteRecipe={deleteRecipe}
         />
       ))}

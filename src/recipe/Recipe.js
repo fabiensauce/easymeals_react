@@ -1,9 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Recipe({ recipe, toogleFavorite, deleteRecipe }) {
+function Recipe({
+  recipe,
+  toogleFavorite,
+  addRecipeIntoPlanning,
+  removeRecipeFromPlanning,
+  deleteRecipe
+}) {
+  let intoPlanning = recipe.isIntoPlanning ? "isIntoPlanning" : "";
   return (
-    <div className="recipe">
+    <div className={`recipe ${intoPlanning}`}>
       <div className="header">
         <div className="name">
           {recipe.name} ({recipe.id}){" "}
@@ -23,9 +30,22 @@ function Recipe({ recipe, toogleFavorite, deleteRecipe }) {
               icon={["fas", "heart"]}
             />
           </div>
-          <div className="addPlanning">
-            <FontAwesomeIcon icon="plus-square" />
-          </div>
+
+          {recipe.isIntoPlanning ? (
+            <div
+              className="removeFromPlanning"
+              onClick={() => removeRecipeFromPlanning(recipe)}
+            >
+              <FontAwesomeIcon icon="minus-square" />
+            </div>
+          ) : (
+            <div
+              className="addIntoPlanning"
+              onClick={() => addRecipeIntoPlanning(recipe)}
+            >
+              <FontAwesomeIcon icon="plus-square" />
+            </div>
+          )}
         </div>
       </div>
       <div className="body">
