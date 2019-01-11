@@ -4,7 +4,7 @@ import _ from "lodash";
 import "./ContainerRecipe.scss";
 // import { FAKE_RECIPES } from "./data_recipe";
 import ListRecipe from "./ListRecipe";
-import Services from "../Services";
+import Services from "../services/Services";
 
 class ContainerRecipe extends Component {
   state = {
