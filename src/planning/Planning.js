@@ -1,7 +1,7 @@
 import React from "react";
 import Meal from "./Meal";
 
-function Planning({ meals }) {
+function Planning({ meals, onClickMeal }) {
   const isLunch = idMeal => idMeal < 20;
   const isDinner = idMeal => idMeal >= 20;
 
@@ -12,7 +12,7 @@ function Planning({ meals }) {
           <table>
             <thead>
               <tr className="rowHead">
-                <th>_</th>
+                <th className="leftTh">_</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
@@ -28,20 +28,20 @@ function Planning({ meals }) {
           <table>
             <tbody>
               <tr className="rowLunch">
-                <th>Lunch</th>
+                <th className="leftTh">Lunch</th>
                 {meals.map(
                   (meal, index) =>
                     isLunch(meal.id) && (
-                      <Meal className="mealsBox" key={index} meal={meal} />
+                      <Meal key={index} meal={meal} onClickMeal={onClickMeal} />
                     )
                 )}
               </tr>
               <tr className="rowDinner">
-                <th>Dinner</th>
+                <th className="leftTh">Dinner</th>
                 {meals.map(
                   (meal, index) =>
                     isDinner(meal.id) && (
-                      <Meal className="mealsBox" key={index} meal={meal} />
+                      <Meal key={index} meal={meal} onClickMeal={onClickMeal} />
                     )
                 )}
               </tr>

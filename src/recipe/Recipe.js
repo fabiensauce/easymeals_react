@@ -4,10 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Recipe({
   recipe,
   toogleFavorite,
-  addRecipeIntoPlanning,
+  openModalPlanning,
   removeRecipeFromPlanning,
   deleteRecipe
 }) {
+  console.log("recipe ", recipe);
   let intoPlanning = recipe.isIntoPlanning ? "isIntoPlanning" : "";
   return (
     <div className={`recipe ${intoPlanning}`}>
@@ -41,7 +42,7 @@ function Recipe({
           ) : (
             <div
               className="addIntoPlanning"
-              onClick={() => addRecipeIntoPlanning(recipe, 23)}
+              onClick={() => openModalPlanning(recipe)}
             >
               <FontAwesomeIcon icon="plus-square" />
             </div>

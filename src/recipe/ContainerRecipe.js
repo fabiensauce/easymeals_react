@@ -13,7 +13,7 @@ class ContainerRecipe extends Component {
       recipes,
       createRecipe,
       toogleFavorite,
-      addRecipeIntoPlanning,
+      openModalPlanning,
       removeRecipeFromPlanning,
       deleteRecipe
     } = this.props;
@@ -25,7 +25,7 @@ class ContainerRecipe extends Component {
         <ListRecipe
           recipes={recipes}
           toogleFavorite={toogleFavorite}
-          addRecipeIntoPlanning={addRecipeIntoPlanning}
+          openModalPlanning={openModalPlanning}
           removeRecipeFromPlanning={removeRecipeFromPlanning}
           deleteRecipe={deleteRecipe}
         />

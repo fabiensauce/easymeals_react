@@ -18,14 +18,14 @@ class ContainerPlanning extends Component {
   };
 
   render() {
-    const { meals } = this.props;
+    const { meals, onClickMeal } = this.props;
     return (
       <div className="containerPlanning">
         <ChooseNbPerson
           nbPerson={this.state.nbPerson}
           changeNbPerson={this.changeNbPerson}
         />
-        <Planning meals={meals} />
+        <Planning meals={meals} onClickMeal={onClickMeal} />
       </div>
     );
   }

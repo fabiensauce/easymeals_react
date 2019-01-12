@@ -1,12 +1,12 @@
 import React from "react";
 
-function Meal({ meal }) {
+function Meal({ meal, onClickMeal }) {
   return (
-    <td className="mealsBox">
-      <div className="divMeals">
+    <td>
+      <div className="meal" onClick={() => onClickMeal(meal)}>
         {meal.recipes.map((recipe, index) => (
-          <div className="meal" key={index}>
-            {recipe.name} _ {recipe.id}
+          <div className="recipeName" key={index}>
+            {recipe.name}
           </div>
         ))}
       </div>

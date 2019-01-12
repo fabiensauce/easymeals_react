@@ -30,67 +30,21 @@
   }
 
   .wrapPlanning {
-    width: 950px;
-    margin: auto;
-
-    .table_whole {
-      background-color: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
-      user-select: none;
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .rowLunch,
-      .rowDinner {
-        border-top: 1px solid #ebe6ff;
-      }
-      th,
-      td {
-        text-align: center;
-        font-weight: unset;
-        width: 12.5%;
-        border-left: 1px solid #ebe6ff;
-      }
-
-      th {
-        padding: 25px 5px;
-        font-size: 18px;
-        color: #fff;
-        background-color: #6c7ae0;
-      }
-      td {
-        padding: 15px 5px;
-        font-size: 15px;
-        color: #808080;
-        border-radius: 5px;
-        .divMeals {
-          min-height: 100px;
-          .meal {
-            // display: inline-block;
-            padding: 5px 3px;
-            border-radius: 12px;
-            margin-bottom: 5px;
-
-            background-color: #ebe6ff; // #f2f2f2; //  #c0c6f2; // #f2f2f2;
-            // border: 1px solid #abb3ed;
-          }
+    th {
+      background-color: #6c7ae0;
+    }
+    td {
+      .meal {
+        .recipeName {
+          background-color: #ebe6ff;
         }
       }
-      td:hover {
-        cursor: pointer;
-        background-color: #ebe6ff; // #eaecfb;
-        .meal {
-          background-color: #f7f5ff; // #f2f2f2;
-        }
+    }
+    td:hover {
+      background-color: #ebe6ff;
+      .recipeName {
+        background-color: #f7f5ff;
       }
-
-      // .table_body tr:nth-child(even) {
-      //   background-color: #f8f6ff;
-      // }
     }
   }
 }

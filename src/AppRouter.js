@@ -6,15 +6,23 @@ import "./AppRouter.scss";
 import Home from "./home/Home.js";
 import ContainerRecipe from "./recipe/ContainerRecipe.js";
 import ContainerPlanning from "./planning/ContainerPlanning.js";
+import Planning from "./planning/Planning";
+import ListRecipe from "./recipe/ListRecipe";
 import Services from "./services/Services";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import Modal from "react-modal";
 library.add(fas, far);
+Modal.setAppElement("#root");
 
 class AppRouter extends Component {
   state = {
+    isModalPlanningOpen: false,
+    isModalRecipeOpen: false,
+    recipe_tmp: undefined,
+    recipes_tmp: [],
     recipes: [],
     meals_id: [],
     meals: [
@@ -97,6 +105,22 @@ class AppRouter extends Component {
   };
 
   // // Arrow fx for binding
+  openModalPlanning = recipe => {
+    this.setState({ isModalPlanningOpen: true, recipe_tmp: recipe });
+  };
+  afterOpenModalPlanning() {
+    console.log("afterOpenModal()");
+  }
+  // Arrow fx for binding
+  closeModalPlanning = () => {
+    this.setState({ isModalPlanningOpen: false });
+  };
+
+  // Arrow fx for binding
+  mealPlanningChosen = meal => {
+    this.closeModalPlanning();
+    this.addRecipeIntoPlanning(this.state.recipe_tmp, meal.id);
+  };
   addRecipeIntoPlanning = (recipe, idMeal) => {
     recipe.isIntoPlanning = true;
     const { recipes, meals_id } = this.state;
@@ -109,7 +133,11 @@ class AppRouter extends Component {
       });
     });
   };
-  // // Arrow fx for binding
+  // Arrow fx for binding
+  removeRecipeFromPlanning_fromModalRecipe = recipe => {
+    this.closeModalRecipe();
+    this.removeRecipeFromPlanning(recipe);
+  };
   removeRecipeFromPlanning = recipe => {
     recipe.isIntoPlanning = false;
     const { recipes, meals_id } = this.state;
@@ -125,6 +153,15 @@ class AppRouter extends Component {
         this.setState({ recipes, meals_id, meals: newMeals });
       });
     });
+  };
+
+  // Arrow fx for binding
+  openModalRecipe = meal => {
+    this.setState({ isModalRecipeOpen: true, recipes_tmp: [...meal.recipes] });
+  };
+  // Arrow fx for binding
+  closeModalRecipe = meal => {
+    this.setState({ isModalRecipeOpen: false });
   };
 
   render() {
@@ -155,7 +192,7 @@ class AppRouter extends Component {
                   recipes={this.state.recipes}
                   createRecipe={this.createRecipe}
                   toogleFavorite={this.toogleFavorite}
-                  addRecipeIntoPlanning={this.addRecipeIntoPlanning}
+                  openModalPlanning={this.openModalPlanning}
                   removeRecipeFromPlanning={this.removeRecipeFromPlanning}
                   deleteRecipe={this.deleteRecipe}
                 />
@@ -164,10 +201,45 @@ class AppRouter extends Component {
             <Route
               path="/planning"
               render={props => (
-                <ContainerPlanning {...props} meals={this.state.meals} />
+                <ContainerPlanning
+                  {...props}
+                  meals={this.state.meals}
+                  onClickMeal={this.openModalRecipe}
+                />
               )}
             />
           </div>
+
+          <Modal
+            isOpen={this.state.isModalPlanningOpen}
+            onAfterOpen={this.afterOpenModalPlanning}
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={this.closeModalPlanning}
+            className="modal modalPlanning"
+            overlayClassName="modalOverlay"
+          >
+            <Planning
+              meals={this.state.meals}
+              onClickMeal={this.mealPlanningChosen}
+            />
+          </Modal>
+          <Modal
+            isOpen={this.state.isModalRecipeOpen}
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={this.closeModalRecipe}
+            className="modal modalRecipe"
+            overlayClassName="modalOverlay"
+          >
+            <ListRecipe
+              recipes={this.state.recipes_tmp}
+              toogleFavorite={undefined}
+              openModalPlanning={undefined}
+              removeRecipeFromPlanning={
+                this.removeRecipeFromPlanning_fromModalRecipe
+              }
+              deleteRecipe={undefined}
+            />
+          </Modal>
         </div>
       </Router>
     );

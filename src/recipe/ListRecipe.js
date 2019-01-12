@@ -4,10 +4,11 @@ import Recipe from "./Recipe";
 function ListRecipe({
   recipes,
   toogleFavorite,
-  addRecipeIntoPlanning,
+  openModalPlanning,
   removeRecipeFromPlanning,
   deleteRecipe
 }) {
+  console.log("LIST RECIPE ", recipes);
   return (
     <div className="listRecipe">
       {recipes.map((recipe, index) => (
@@ -16,7 +17,7 @@ function ListRecipe({
           key={recipe.id}
           recipe={recipe}
           toogleFavorite={toogleFavorite}
-          addRecipeIntoPlanning={addRecipeIntoPlanning}
+          openModalPlanning={openModalPlanning}
           removeRecipeFromPlanning={removeRecipeFromPlanning}
           deleteRecipe={deleteRecipe}
         />

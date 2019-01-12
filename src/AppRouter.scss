@@ -35,3 +35,206 @@ body {
     margin-top: 75px;
   }
 }
+
+.modal {
+  position: absolute;
+  width: 600px;
+  top: 150px;
+  left: calc((100vw - 650px) / 2);
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.modal:focus {
+  outline: 0;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(140, 140, 140, 0.7);
+}
+
+.modalRecipe {
+  top: 76px;
+  padding: 30px;
+  width: 750px;
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background-color: #282c34;
+  color: white;
+}
+.modalPlanning {
+  width: 950px;
+  left: calc((100vw - 950px) / 2);
+  // right: 100px;
+  // bottom: 100px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+
+.wrapPlanning {
+  width: 950px;
+  margin: auto;
+
+  .table_whole {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    user-select: none;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .leftTh {
+      border-left: none;
+    }
+    .rowLunch,
+    .rowDinner {
+      border-top: 1px solid #ebe6ff;
+    }
+    th,
+    td {
+      text-align: center;
+      font-weight: unset;
+      width: 12.5%;
+      border-left: 1px solid #ebe6ff;
+    }
+
+    th {
+      padding: 25px 5px;
+      font-size: 18px;
+      color: #fff;
+      background-color: #ffb366; // #6c7ae0;
+    }
+
+    td {
+      padding: 15px 5px;
+      font-size: 15px;
+      color: #808080;
+      border-radius: 5px;
+      .meal {
+        min-height: 100px;
+        .recipeName {
+          // display: inline-block;
+          padding: 5px 3px;
+          border-radius: 12px;
+          margin-bottom: 5px;
+
+          background-color: #ffeee6; //#ebe6ff; // #f2f2f2; //  #c0c6f2; // #f2f2f2;
+          // border: 1px solid #abb3ed;
+        }
+      }
+    }
+    td:hover {
+      cursor: pointer;
+      background-color: #ffeee6; //#ebe6ff; // #eaecfb;
+      .recipeName {
+        background-color: #fff8f5; // #f7f5ff; // #f2f2f2;
+      }
+    }
+
+    // .table_body tr:nth-child(even) {
+    //   background-color: #f8f6ff;
+    // }
+  }
+}
+
+.listRecipe {
+  margin: auto;
+  width: 650px;
+  .recipe {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    padding: 8px 12px;
+    margin-bottom: 20px;
+    .header {
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e6e6e6;
+      .name {
+        display: inline-block;
+        text-transform: capitalize;
+        font-size: 20px;
+      }
+      .deleteRecipe {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 15px;
+      }
+      .deleteRecipe:hover {
+        color: #ff9999;
+      }
+      .right {
+        display: inline-block;
+        float: right;
+        div {
+          display: inline-block;
+          margin-left: 15px;
+        }
+        .favorite {
+          cursor: pointer;
+          .isFavorite {
+            color: #ff8080;
+          }
+          .notFavorite {
+            color: #cccccc;
+          }
+          // .isFavorite:hover,
+          // .notFavorite:hover {
+          //   color: #ffb3b3;
+          // }
+        }
+
+        .addIntoPlanning {
+          cursor: pointer;
+        }
+        .addIntoPlanning:hover {
+          color: #969fe9;
+        }
+        .removeFromPlanning {
+          cursor: pointer;
+          color: #969fe9;
+        }
+        .removeFromPlanning:hover {
+          color: #e6e6e6;
+        }
+      }
+    }
+    .body {
+      padding-top: 8px;
+      .ingredientList {
+        display: inline-block;
+        width: 170px;
+        vertical-align: top;
+        .ingredient {
+          margin-bottom: 7px;
+        }
+      }
+      .stepList {
+        display: inline-block;
+        max-width: calc(99% - 170px);
+        .step {
+          .stepTitle {
+            // font-weight: 400;
+            color: #ffcc99; // #cccccc;
+          }
+          .stepContent {
+            font-family: "Architects Daughter", cursive;
+          }
+        }
+      }
+    }
+  }
+
+  .recipe.isIntoPlanning {
+    border: 1px solid #969fe9;
+    .header {
+      border-bottom: 1px solid #969fe9;
+    }
+  }
+}
