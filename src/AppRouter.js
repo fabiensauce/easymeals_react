@@ -17,36 +17,36 @@ import Modal from "react-modal";
 library.add(fas, far);
 Modal.setAppElement("#root");
 
+// let obj = { 'name' : 'charlotte', age: 45, isUseful: 'no'}
+// let { name, ...rest } = obj   // rest : {age: 45, isUseful: 'no'}}
+// {
+//   "nbPerson": {
+//     "value": 4
+//   },
+//   "meals": [
+//     { "id": 10, "recipes": [] },
+//     { "id": 11,
+//       "recipes": [
+//         { "id": 5, "nbPerson": 10 ,
+//         { "id": 4 }
+//       ]
+//     },
+
 class AppRouter extends Component {
   state = {
+    recipes: [],
+    meals_id: [],
+    meals: [],
     isModalPlanningOpen: false,
     isModalRecipeOpen: false,
     recipe_tmp: undefined,
-    recipes_tmp: [],
-    recipes: [],
-    meals_id: [],
-    meals: [
-      { id: 10, recipes: [] },
-      { id: 11, recipes: [] },
-      { id: 12, recipes: [] },
-      { id: 13, recipes: [] },
-      { id: 14, recipes: [] },
-      { id: 15, recipes: [] },
-      { id: 16, recipes: [] },
-
-      { id: 20, recipes: [] },
-      { id: 21, recipes: [] },
-      { id: 22, recipes: [] },
-      { id: 23, recipes: [] },
-      { id: 24, recipes: [] },
-      { id: 25, recipes: [] },
-      { id: 26, recipes: [] }
-    ]
+    recipes_tmp: []
   };
+
   componentDidMount() {
     Services.getRecipes().then(dataRecipes => {
       Services.getMeals().then(dataMeals_id => {
-        const newMeals = this.mapMeals_withRecipes(dataMeals_id, dataRecipes);
+        const newMeals = this._mapMeals_withRecipes(dataMeals_id, dataRecipes);
         this.setState({
           recipes: dataRecipes,
           meals_id: dataMeals_id,
@@ -56,7 +56,11 @@ class AppRouter extends Component {
     });
   }
 
-  mapMeals_withRecipes(meals_id, recipes) {
+  ///////////////////////////////////////////
+  /// UTILS FUNCTIONS
+  ///////////////////////////////////////////
+
+  _mapMeals_withRecipes(meals_id, recipes) {
     return meals_id.map(meal_id => ({
       id: meal_id.id,
       recipes: meal_id.recipes
@@ -65,9 +69,23 @@ class AppRouter extends Component {
     }));
   }
 
-  // Arrow fx for binding
-  createRecipe = () => {
-    const recipe = {
+  _removeFromPlanning(recipes, meals_id, recipeToRemove) {
+    let newMeal_id = meals_id.find(meal_id => {
+      if (meal_id.recipes.indexOf(recipeToRemove.id) !== -1) {
+        _.remove(meal_id.recipes, id => id === recipeToRemove.id);
+        return true;
+      } else return false;
+    });
+    // let newMeal_id = meals_id.find(meal_id => {
+    //   meal_id.recipes.find(recipe => recipe.id === recipeToRemove.id)
+    // })
+    // _.remove(newMeal_id.recipes, id => id === recipeToRemove.id);
+
+    const newMeals = this._mapMeals_withRecipes(meals_id, recipes);
+    return { newMeals, newMeal_id };
+  }
+  _fakeRecipe() {
+    return {
       name: "salade CESAR ",
       isFavorite: false,
       nbPerson: 14,
@@ -79,6 +97,18 @@ class AppRouter extends Component {
       description: "blablablak",
       steps: ["mix flour and eggs", "add slowly milk"]
     };
+  }
+
+  ///////////////////////////////////////////
+  /// EVENTS
+  ///////////////////////////////////////////
+
+  /// FROM RECIPE
+  ///////////////////////////////////////////
+
+  // Arrow fx for binding
+  createRecipe = () => {
+    const recipe = this._fakeRecipe();
     Services.createRecipe(recipe).then(newRecipe => {
       this.setState({ recipes: [...this.state.recipes, newRecipe] });
     });
@@ -90,23 +120,19 @@ class AppRouter extends Component {
       this.setState({ recipes: this.state.recipes });
     });
   };
+
   // Arrow fx for binding
   deleteRecipe = recipe => {
     const { recipes, meals_id } = this.state;
-
     if (recipe.isIntoPlanning) {
-      // remove from view and db
-      let newMeal_id = meals_id.find(meal_id => {
-        if (meal_id.recipes.indexOf(recipe.id) !== -1) {
-          _.remove(meal_id.recipes, id => id === recipe.id);
-          return true;
-        } else return false;
-      });
-      const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
+      const { newMeals, newMeal_id } = this._removeFromPlanning(
+        recipes,
+        meals_id,
+        recipe
+      );
       const newRecipes = recipes.filter(r => r.id !== recipe.id);
-
-      Services.updateMeal(newMeal_id.id, newMeal_id).then(() => {
-        Services.deleteRecipe(recipe.id).then(data => {
+      Services.deleteRecipe(recipe.id).then(data => {
+        Services.updateMeal(newMeal_id.id, newMeal_id).then(() => {
           this.setState({ recipes: newRecipes, meals_id, meals: newMeals });
         });
       });
@@ -118,57 +144,42 @@ class AppRouter extends Component {
     }
   };
 
-  // // Arrow fx for binding
+  // Arrow fx for binding
   openModalPlanning = recipe => {
     this.setState({ isModalPlanningOpen: true, recipe_tmp: recipe });
   };
-  afterOpenModalPlanning() {
-    console.log("afterOpenModal()");
-  }
-  // Arrow fx for binding
-  closeModalPlanning = () => {
-    this.setState({ isModalPlanningOpen: false });
-  };
 
   // Arrow fx for binding
-  mealPlanningChosen = meal => {
-    this.closeModalPlanning();
-    this.addRecipeIntoPlanning(this.state.recipe_tmp, meal.id);
-  };
-  addRecipeIntoPlanning = (recipe, idMeal) => {
-    recipe.isIntoPlanning = true;
-    const { recipes, meals_id } = this.state;
-    let newMeal_id = meals_id.find(meal_id => meal_id.id === idMeal);
-    newMeal_id.recipes.push(recipe.id);
-    const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
-    Services.updateRecipe(recipe.id, recipe).then(data => {
-      Services.updateMeal(newMeal_id.id, newMeal_id).then(data => {
-        this.setState({ recipes, meals_id, meals: newMeals });
-      });
-    });
-  };
-
-  // Arrow fx for binding
-  removeRecipeFromPlanning_fromModalRecipe = recipe => {
-    this.closeModalRecipe();
-    this.removeRecipeFromPlanning(recipe);
-  };
   removeRecipeFromPlanning = recipe => {
-    recipe.isIntoPlanning = false;
     const { recipes, meals_id } = this.state;
-    let newMeal_id = meals_id.find(meal_id => {
-      if (meal_id.recipes.indexOf(recipe.id) !== -1) {
-        _.remove(meal_id.recipes, id => id === recipe.id);
-        return true;
-      } else return false;
-    });
-    const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
+    const { newMeals, newMeal_id } = this._removeFromPlanning(
+      recipes,
+      meals_id,
+      recipe
+    );
+    recipe.isIntoPlanning = false;
     Services.updateRecipe(recipe.id, recipe).then(() => {
       Services.updateMeal(newMeal_id.id, newMeal_id).then(() => {
         this.setState({ recipes, meals_id, meals: newMeals });
       });
     });
   };
+
+  /// FROM MODAL_RECIPE (open from Planning)
+  ///////////////////////////////////////////
+
+  // Arrow fx for binding
+  closeModalRecipe = meal => {
+    this.setState({ isModalRecipeOpen: false });
+  };
+  // Arrow fx for binding
+  removeRecipeFromPlanning_fromModalRecipe = recipe => {
+    this.closeModalRecipe();
+    this.removeRecipeFromPlanning(recipe);
+  };
+
+  /// FROM PLANNING
+  ///////////////////////////////////////////
 
   // Arrow fx for binding
   openModalRecipe = meal => {
@@ -179,10 +190,34 @@ class AppRouter extends Component {
       });
     }
   };
+
+  /// FROM MODAL_PLANNING (open from Recipe)
+  ///////////////////////////////////////////
+
   // Arrow fx for binding
-  closeModalRecipe = meal => {
-    this.setState({ isModalRecipeOpen: false });
+  closeModalPlanning = () => {
+    this.setState({ isModalPlanningOpen: false });
   };
+
+  // Arrow fx for binding
+  mealPlanningChosen = meal => {
+    this.closeModalPlanning();
+    const recipe = this.state.recipe_tmp;
+    recipe.isIntoPlanning = true;
+    const { recipes, meals_id } = this.state;
+    let newMeal_id = meals_id.find(meal_id => meal_id.id === meal.id);
+    newMeal_id.recipes.push(recipe.id);
+    const newMeals = this._mapMeals_withRecipes(meals_id, recipes);
+    Services.updateRecipe(recipe.id, recipe).then(data => {
+      Services.updateMeal(newMeal_id.id, newMeal_id).then(data => {
+        this.setState({ recipes, meals_id, meals: newMeals });
+      });
+    });
+  };
+
+  ///////////////////////////////////////////
+  /// EVENTS
+  ///////////////////////////////////////////
 
   render() {
     return (
@@ -231,7 +266,6 @@ class AppRouter extends Component {
 
           <Modal
             isOpen={this.state.isModalPlanningOpen}
-            onAfterOpen={this.afterOpenModalPlanning}
             shouldCloseOnOverlayClick={true}
             onRequestClose={this.closeModalPlanning}
             className="modal modalPlanning"
