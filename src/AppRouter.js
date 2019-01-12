@@ -57,14 +57,12 @@ class AppRouter extends Component {
   }
 
   mapMeals_withRecipes(meals_id, recipes) {
-    return _.map(meals_id, meal_id => {
-      return {
-        id: meal_id.id,
-        recipes: _.map(meal_id.recipes, idRecipe =>
-          _.find(recipes, r => r.id === idRecipe)
-        )
-      };
-    });
+    return meals_id.map(meal_id => ({
+      id: meal_id.id,
+      recipes: meal_id.recipes
+        .map(idRecipe => recipes.find(r => r.id === idRecipe))
+        .filter(recipe => recipe !== undefined)
+    }));
   }
 
   // Arrow fx for binding
@@ -89,19 +87,35 @@ class AppRouter extends Component {
   toogleFavorite = recipe => {
     recipe.isFavorite = !recipe.isFavorite;
     Services.updateRecipe(recipe.id, recipe).then(data => {
-      let newRecipes = [...this.state.recipes];
-      // WORKING without those two line below ...
-      // let newRecipe = _.find(newRecipes, r => r.id === recipe.id);
-      // newRecipe.isFavorite = recipe.isFavorite;
-      this.setState({ recipes: newRecipes });
+      this.setState({ recipes: this.state.recipes });
     });
   };
   // Arrow fx for binding
   deleteRecipe = recipe => {
-    Services.deleteRecipe(recipe.id).then(data => {
-      let newRecipes = _.filter(this.state.recipes, r => r.id !== recipe.id);
-      this.setState({ recipes: newRecipes });
-    });
+    const { recipes, meals_id } = this.state;
+
+    if (recipe.isIntoPlanning) {
+      // remove from view and db
+      let newMeal_id = meals_id.find(meal_id => {
+        if (meal_id.recipes.indexOf(recipe.id) !== -1) {
+          _.remove(meal_id.recipes, id => id === recipe.id);
+          return true;
+        } else return false;
+      });
+      const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
+      const newRecipes = recipes.filter(r => r.id !== recipe.id);
+
+      Services.updateMeal(newMeal_id.id, newMeal_id).then(() => {
+        Services.deleteRecipe(recipe.id).then(data => {
+          this.setState({ recipes: newRecipes, meals_id, meals: newMeals });
+        });
+      });
+    } else {
+      const newRecipes = recipes.filter(r => r.id !== recipe.id);
+      Services.deleteRecipe(recipe.id).then(data => {
+        this.setState({ recipes: newRecipes });
+      });
+    }
   };
 
   // // Arrow fx for binding
@@ -124,7 +138,7 @@ class AppRouter extends Component {
   addRecipeIntoPlanning = (recipe, idMeal) => {
     recipe.isIntoPlanning = true;
     const { recipes, meals_id } = this.state;
-    let newMeal_id = _.find(meals_id, meal_id => meal_id.id === idMeal);
+    let newMeal_id = meals_id.find(meal_id => meal_id.id === idMeal);
     newMeal_id.recipes.push(recipe.id);
     const newMeals = this.mapMeals_withRecipes(meals_id, recipes);
     Services.updateRecipe(recipe.id, recipe).then(data => {
@@ -133,6 +147,7 @@ class AppRouter extends Component {
       });
     });
   };
+
   // Arrow fx for binding
   removeRecipeFromPlanning_fromModalRecipe = recipe => {
     this.closeModalRecipe();
@@ -141,8 +156,8 @@ class AppRouter extends Component {
   removeRecipeFromPlanning = recipe => {
     recipe.isIntoPlanning = false;
     const { recipes, meals_id } = this.state;
-    let newMeal_id = _.find(meals_id, meal_id => {
-      if (_.indexOf(meal_id.recipes, recipe.id) !== -1) {
+    let newMeal_id = meals_id.find(meal_id => {
+      if (meal_id.recipes.indexOf(recipe.id) !== -1) {
         _.remove(meal_id.recipes, id => id === recipe.id);
         return true;
       } else return false;
@@ -157,7 +172,12 @@ class AppRouter extends Component {
 
   // Arrow fx for binding
   openModalRecipe = meal => {
-    this.setState({ isModalRecipeOpen: true, recipes_tmp: [...meal.recipes] });
+    if (meal.recipes.length > 0) {
+      this.setState({
+        isModalRecipeOpen: true,
+        recipes_tmp: [...meal.recipes]
+      });
+    }
   };
   // Arrow fx for binding
   closeModalRecipe = meal => {
@@ -183,7 +203,6 @@ class AppRouter extends Component {
 
           <div className="route">
             <Route exact path="/" component={Home} />
-            <div />
             <Route
               path="/recipe"
               render={props => (
@@ -232,8 +251,7 @@ class AppRouter extends Component {
           >
             <ListRecipe
               recipes={this.state.recipes_tmp}
-              toogleFavorite={undefined}
-              openModalPlanning={undefined}
+              toogleFavorite={this.toogleFavorite}
               removeRecipeFromPlanning={
                 this.removeRecipeFromPlanning_fromModalRecipe
               }

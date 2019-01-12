@@ -8,18 +8,18 @@ function Recipe({
   removeRecipeFromPlanning,
   deleteRecipe
 }) {
-  console.log("recipe ", recipe);
   let intoPlanning = recipe.isIntoPlanning ? "isIntoPlanning" : "";
   return (
     <div className={`recipe ${intoPlanning}`}>
       <div className="header">
         <div className="name">
-          {recipe.name} ({recipe.id}){" "}
+          {recipe.name} ({recipe.id})
         </div>
-        <div className="deleteRecipe" onClick={() => deleteRecipe(recipe)}>
-          <FontAwesomeIcon icon={["fas", "trash-alt"]} />
-        </div>
-
+        {deleteRecipe && (
+          <div className="deleteRecipe" onClick={() => deleteRecipe(recipe)}>
+            <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+          </div>
+        )}
         <div className="right">
           <div className="pers">
             <FontAwesomeIcon icon="users" />

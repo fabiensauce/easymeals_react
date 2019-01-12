@@ -8,7 +8,6 @@ function ListRecipe({
   removeRecipeFromPlanning,
   deleteRecipe
 }) {
-  console.log("LIST RECIPE ", recipes);
   return (
     <div className="listRecipe">
       {recipes.map((recipe, index) => (
