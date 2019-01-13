@@ -8,6 +8,7 @@ import ContainerRecipe from "./recipe/ContainerRecipe.js";
 import ContainerPlanning from "./planning/ContainerPlanning.js";
 import Planning from "./planning/Planning";
 import ListRecipe from "./recipe/ListRecipe";
+import ContainerErrand from "./errand/ContainerErrand";
 import Services from "./services/Services";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -19,6 +20,7 @@ Modal.setAppElement("#root");
 
 class AppRouter extends Component {
   state = {
+    page: "home",
     recipes: [],
     nbPerson: undefined,
     meals_db: [],
@@ -105,6 +107,9 @@ class AppRouter extends Component {
   /// EVENTS - all Arrow fx for binding !
   ///////////////////////////////////////////
 
+  setPage = page => {
+    this.setState({ page });
+  };
   /// FROM RECIPE
   ///////////////////////////////////////////
 
@@ -248,16 +253,27 @@ class AppRouter extends Component {
     return (
       <Router>
         <div className="appRouter">
-          <ul className="nav">
+          <ul className={`nav ${this.state.page}`}>
             <li className="liEasyMeal">EasyMeals</li>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={() => this.setPage("home")}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/recipe">Recipe</Link>
+              <Link to="/recipe" onClick={() => this.setPage("recipe")}>
+                Recipe
+              </Link>
             </li>
             <li>
-              <Link to="/planning">Planning</Link>
+              <Link to="/planning" onClick={() => this.setPage("planning")}>
+                Planning
+              </Link>
+            </li>
+            <li>
+              <Link to="/errand" onClick={() => this.setPage("errand")}>
+                Errand
+              </Link>
             </li>
           </ul>
 
@@ -290,6 +306,7 @@ class AppRouter extends Component {
                 />
               )}
             />
+            <Route path="/errand" render={props => <ContainerErrand />} />
           </div>
 
           <Modal

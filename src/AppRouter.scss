@@ -16,7 +16,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #ffb366;
+    background-color: #e6e6e6;
     user-select: none;
     li {
       display: inline-block;
@@ -30,6 +30,18 @@ body {
       color: #595959;
       padding: 27px 30px;
     }
+  }
+  .nav.home {
+    background-color: #ff8080;
+  }
+  .nav.recipe {
+    background-color: #ffbf80;
+  }
+  .nav.planning {
+    background-color: #969fe9;
+  }
+  .nav.errand {
+    background-color: #6ac897;
   }
   .route {
     margin-top: 76px;
