@@ -7,20 +7,30 @@ import "./containerErrand.scss";
 function ContainerErrand({ cssPage, setCssPage, meals }) {
   if (cssPage !== "errand") setCssPage("errand");
 
-  function _computeErrandsFromMeals(meals) {
-    // console.log("_computeErrandsFromMeals() --- ", meals);
-
-    let errands = [];
-    for (let meal of meals) {
-      for (let recipe of meal.recipes) {
-        for (let ingredient of recipe.ingredients) {
-          errands.push(ingredient);
-        }
-      }
-    }
-    // console.log("errands : ", errands);s
-    return errands;
+  function _flattenRecipes(recipes) {
+    return recipes.reduce((result_ingredients, currRecipe) => {
+      return [...result_ingredients, ...currRecipe.ingredients];
+    }, []);
   }
+  function _flattenMeals(meals) {
+    return meals.reduce((result_ingredients, currMeal) => {
+      let ingredients = _flattenRecipes(currMeal.recipes);
+      return [...result_ingredients, ...ingredients];
+    }, []);
+  }
+  function _mergeIngredients(ingredients) {
+    console.log(ingredients);
+    let mergedIngredients = [];
+    for (let errand of ingredients) {
+      let mergedErrand = mergedIngredients.find(mi => mi.food === errand.food);
+      if (mergedErrand) {
+        mergedErrand.qty = mergedErrand.qty + errand.qty;
+      } else mergedIngredients.push({ ...errand });
+    }
+    return mergedIngredients;
+  }
+  const _computeErrandsFromMeals = meals =>
+    _mergeIngredients(_flattenMeals(meals));
 
   let errands = _computeErrandsFromMeals(meals);
 
