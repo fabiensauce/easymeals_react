@@ -40,14 +40,17 @@ const delete_ = url => {
 const Services = {
   createRecipe: recipe => post("http://localhost:3004/recipes", recipe),
   getRecipes: () => get("http://localhost:3004/recipes"),
-  updateRecipe: (id, recipe) =>
-    put(`http://localhost:3004/recipes/${id}`, recipe),
+  updateRecipe: (id, recp) => put(`http://localhost:3004/recipes/${id}`, recp),
   deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`),
 
   getMeals: () => get(`http://localhost:3004/meals`),
   updateMeal: (id, meal) => put(`http://localhost:3004/meals/${id}`, meal),
 
   getNbPerson: () => get(`http://localhost:3004/nbPerson`),
-  updateNbPerson: nb => put(`http://localhost:3004/nbPerson`, { value: nb })
+  updateNbPerson: nb => put(`http://localhost:3004/nbPerson`, { value: nb }),
+
+  createCustomErrand: cust => post("http://localhost:3004/customErrands", cust),
+  getCustomErrands: () => get(`http://localhost:3004/customErrands`),
+  deleteCustomErrand: id => delete_(`http://localhost:3004/customErrands/${id}`)
 };
 export default Services;
