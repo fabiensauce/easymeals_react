@@ -4,121 +4,74 @@ import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./containerErrand.scss";
-
-function _flattenRecipes(recipes) {
-  return recipes.reduce((result_ingredients, currRecipe) => {
-    return [...result_ingredients, ...currRecipe.ingredients];
-  }, []);
-}
-function _flattenMeals(meals) {
-  return meals.reduce((result_ingredients, currMeal) => {
-    let ingredients = _flattenRecipes(currMeal.recipes);
-    return [...result_ingredients, ...ingredients];
-  }, []);
-}
-function _mergeIngredients(ingredients) {
-  let mergedIngredients = [];
-  for (let errand of ingredients) {
-    let mergedErrand = mergedIngredients.find(mi => mi.food === errand.food);
-    if (mergedErrand) {
-      mergedErrand.qty = mergedErrand.qty + errand.qty;
-    } else mergedIngredients.push({ ...errand });
-  }
-  return mergedIngredients;
-}
-const _computeErrandsFromMeals = meals =>
-  _mergeIngredients(_flattenMeals(meals));
-
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
-/////////////////////////////////////////
+import { _computeErrands } from "./UtilsErrand";
 
 class ContainerErrand extends Component {
   state = {
-    errandsCustom: [],
-    valueInputCustom: ""
+    customErrands: []
   };
 
   componentDidMount() {
     let { cssPage, setCssPage } = this.props;
     if (cssPage !== "errand") setCssPage("errand");
 
+    this.inputCustom = React.createRef();
+
     Services.getCustomErrands().then(dataCustomErrands => {
-      console.log("errandsCustom ", dataCustomErrands);
-      this.setState({ errandsCustom: dataCustomErrands });
+      this.setState({ customErrands: dataCustomErrands });
     });
   }
 
   // Arrow fx for binding
-  onChangeInputCustom = event => {
-    this.setState({ valueInputCustom: event.target.value });
-  };
-
-  addCustom(customErrand) {
-    Services.createCustomErrand({ value: customErrand }).then(
+  addCustom = () => {
+    const inputCustomValue = this.inputCustom.current.value;
+    Services.createCustomErrand({ value: inputCustomValue }).then(
       dataCustomErrand => {
+        this.inputCustom.current.value = "";
         this.setState({
-          errandsCustom: [...this.state.errandsCustom, dataCustomErrand],
-          valueInputCustom: ""
+          customErrands: [...this.state.customErrands, dataCustomErrand]
         });
       }
     );
-  }
-  deleteCustom(customErrand) {
-    let { errandsCustom } = this.state;
-    _.remove(errandsCustom, elem => elem.id === customErrand.id);
+  };
+  delete(customErrand) {
+    let { customErrands } = this.state;
+    _.remove(customErrands, elem => elem.id === customErrand.id);
     Services.deleteCustomErrand(customErrand.id).then(() => {
-      this.setState({ errandsCustom });
+      this.setState({ customErrands });
     });
   }
 
   render() {
     let { meals } = this.props;
-    let errands = _computeErrandsFromMeals(meals);
+    let errands = _computeErrands(meals);
     return (
       <div className="container_errand">
-        {errands.map((ingredient, index) => (
-          <div className="ingredient" key={index}>
-            {ingredient.qty + " " + ingredient.unit + " " + ingredient.food}
-          </div>
-        ))}
+        <div className="listErrand">
+          {errands.map((errand, index) => (
+            <div className="errand classic" key={index}>
+              {errand.qty + " " + errand.unit + " " + errand.food}
+            </div>
+          ))}
 
-        <div className="addCustom">
-          {this.state.errandsCustom.map((errandCustom, index) => (
-            <div className="errandsCustom" key={errandCustom.id}>
-              {errandCustom.value}
-              <span
-                className="deleteRecipe"
-                onClick={() => this.deleteCustom(errandCustom)}
-              >
+          {this.state.customErrands.map((custom, index) => (
+            <div className="errand custom" key={custom.id}>
+              <span className="value">{custom.value} </span>
+              <span className="delete" onClick={() => this.delete(custom)}>
                 <FontAwesomeIcon icon={["fas", "trash-alt"]} />
               </span>
             </div>
           ))}
-
+        </div>
+        <div className="addCustom">
           <input
+            className="input"
             type="text"
-            value={this.state.valueInputCustom}
-            onChange={this.onChangeInputCustom}
+            ref={this.inputCustom}
+            placeholder="custom"
           />
-          <span
-            className="btn"
-            onClick={() => this.addCustom(this.state.valueInputCustom)}
-          >
-            ADD +
+          <span className="add" onClick={this.addCustom}>
+            <FontAwesomeIcon icon="plus-square" />
           </span>
         </div>
       </div>

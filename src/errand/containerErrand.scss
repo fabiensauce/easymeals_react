@@ -1,20 +1,60 @@
 .container_errand {
   width: 100%;
   background-color: #fff; // #f2f2f2;
-  padding: 40px;
+  // padding: 40px;
   color: #808080; // #595959; // #808080;
   overflow-y: auto;
   font-size: 22px;
 
-  .ingredient {
-    font-family: "Architects Daughter", cursive;
-    margin-bottom: 7px;
-  }
+  .listErrand {
+    margin: 40px;
+    margin-bottom: 100px;
+    // width: 500px;
+    // max-height: 400px;
+    // overflow-y: auto;
 
-  .quotePhrase {
-    font-family: "Architects Daughter", cursive;
-    font-size: 21px;
-    margin-bottom: 10px;
-    color: cornflowerblue;
+    .errand {
+    }
+    .errand.classic {
+      margin-bottom: 7px;
+      font-size: 20px;
+    }
+    .errand.custom {
+      font-family: "Architects Daughter", cursive;
+      margin-bottom: 0;
+      .value {
+        margin-right: 10px;
+      }
+      .delete {
+        cursor: pointer;
+        font-size: 13px;
+      }
+      .delete:hover {
+        color: #ff9999;
+      }
+    }
+  }
+  .addCustom {
+    position: fixed;
+    padding: 20px 40px;
+    width: calc(100% - 80px);
+    border-top: 1px solid #e6e6e6;
+    background: #fff;
+    bottom: 0;
+
+    .input {
+      font-family: "Architects Daughter", cursive;
+      vertical-align: top;
+      margin-right: 10px;
+      font-size: 22px;
+      border-radius: 8px;
+    }
+
+    .input:focus {
+      outline: 0;
+    }
+    .add {
+      font-size: 30px;
+    }
   }
 }
