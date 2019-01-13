@@ -1,7 +1,7 @@
 import React from "react";
 import Meal from "./Meal";
 
-function Planning({ meals, onClickMeal }) {
+function Planning({ meals, nbPersonGlobal, onClickMeal }) {
   const isLunch = idMeal => idMeal < 20;
   const isDinner = idMeal => idMeal >= 20;
 
@@ -32,7 +32,12 @@ function Planning({ meals, onClickMeal }) {
                 {meals.map(
                   (meal, index) =>
                     isLunch(meal.id) && (
-                      <Meal key={index} meal={meal} onClickMeal={onClickMeal} />
+                      <Meal
+                        key={index}
+                        meal={meal}
+                        nbPersonGlobal={nbPersonGlobal}
+                        onClickMeal={onClickMeal}
+                      />
                     )
                 )}
               </tr>
@@ -41,7 +46,12 @@ function Planning({ meals, onClickMeal }) {
                 {meals.map(
                   (meal, index) =>
                     isDinner(meal.id) && (
-                      <Meal key={index} meal={meal} onClickMeal={onClickMeal} />
+                      <Meal
+                        key={index}
+                        meal={meal}
+                        nbPersonGlobal={nbPersonGlobal}
+                        onClickMeal={onClickMeal}
+                      />
                     )
                 )}
               </tr>

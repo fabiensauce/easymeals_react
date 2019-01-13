@@ -8,7 +8,11 @@ function ContainerPlanning({ meals, nbPerson, changeNbPerson, onClickMeal }) {
   return (
     <div className="containerPlanning">
       <ChooseNbPerson nbPerson={nbPerson} changeNbPerson={changeNbPerson} />
-      <Planning meals={meals} onClickMeal={onClickMeal} />
+      <Planning
+        meals={meals}
+        nbPersonGlobal={nbPerson}
+        onClickMeal={onClickMeal}
+      />
     </div>
   );
 }
