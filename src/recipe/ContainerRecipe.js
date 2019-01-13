@@ -15,7 +15,8 @@ class ContainerRecipe extends Component {
       toogleFavorite,
       openModalPlanning,
       removeRecipeFromPlanning,
-      deleteRecipe
+      deleteRecipe,
+      isIntoModal
     } = this.props;
     return (
       <div className="containerRecipe">
@@ -28,6 +29,7 @@ class ContainerRecipe extends Component {
           openModalPlanning={openModalPlanning}
           removeRecipeFromPlanning={removeRecipeFromPlanning}
           deleteRecipe={deleteRecipe}
+          isIntoModal={isIntoModal}
         />
       </div>
     );

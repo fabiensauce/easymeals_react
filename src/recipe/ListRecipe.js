@@ -6,7 +6,9 @@ function ListRecipe({
   toogleFavorite,
   openModalPlanning,
   removeRecipeFromPlanning,
-  deleteRecipe
+  deleteRecipe,
+  isIntoModal,
+  changeNbPerson
 }) {
   return (
     <div className="listRecipe">
@@ -19,6 +21,8 @@ function ListRecipe({
           openModalPlanning={openModalPlanning}
           removeRecipeFromPlanning={removeRecipeFromPlanning}
           deleteRecipe={deleteRecipe}
+          isIntoModal={isIntoModal}
+          changeNbPerson={changeNbPerson}
         />
       ))}
     </div>

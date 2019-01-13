@@ -26,7 +26,8 @@ class AppRouter extends Component {
     isModalPlanningOpen: false,
     isModalRecipeOpen: false,
     recipes_toDisplayModal: [],
-    recipe_toAdd: undefined
+    recipe_toAdd: undefined,
+    idMeal_openModal: undefined
   };
 
   componentDidMount() {
@@ -163,6 +164,30 @@ class AppRouter extends Component {
     this.setState({ isModalRecipeOpen: false });
   };
 
+  _updateRecipe_db_nbPerson(recipeRemove, meals_db) {
+    let newMeal_db = meals_db.find(meal_db =>
+      meal_db.recipes.find(recipe_db => recipe_db.id === recipeRemove.id)
+    );
+    _.remove(newMeal_db.recipes, recipe_db => recipe_db.id === recipeRemove.id);
+    return newMeal_db;
+  }
+
+  changeNbPersonMealRecipe = (newNb, recipe) => {
+    const { recipes, meals_db, nbPerson: nbP, idMeal_openModal } = this.state;
+    let newMeal_db = meals_db.find(meal_db => meal_db.id === idMeal_openModal);
+    let recipe_db = newMeal_db.recipes.find(r_db => r_db.id === recipe.id);
+    recipe_db.nbPerson = newNb;
+    const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, nbP);
+    const meal_openModal = newMeals.find(meal => meal.id === idMeal_openModal);
+    Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
+      this.setState({
+        meals_db,
+        meals: newMeals,
+        recipes_toDisplayModal: meal_openModal.recipes
+      });
+    });
+  };
+
   removeRecipeFromPlanning_fromModalRecipe = recipe => {
     this.closeModalRecipe();
     this.removeRecipeFromPlanning(recipe);
@@ -171,10 +196,9 @@ class AppRouter extends Component {
   /// FROM PLANNING
   ///////////////////////////////////////////
 
-  changeNbPerson = isIncrement => {
-    const { recipes, nbPerson, meals_db } = this.state;
-    if (nbPerson === 1 && !isIncrement) return;
-    let newNb = isIncrement ? nbPerson + 1 : nbPerson - 1;
+  changeNbPerson = newNb => {
+    if (newNb <= 0) return;
+    const { recipes, meals_db } = this.state;
     const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, newNb);
     Services.updateNbPerson(newNb).then(() => {
       this.setState({ nbPerson: newNb, meals: newMeals });
@@ -185,7 +209,8 @@ class AppRouter extends Component {
     if (meal.recipes.length > 0) {
       this.setState({
         isModalRecipeOpen: true,
-        recipes_toDisplayModal: [...meal.recipes]
+        recipes_toDisplayModal: meal.recipes,
+        idMeal_openModal: meal.id
       });
     }
   };
@@ -249,6 +274,7 @@ class AppRouter extends Component {
                   openModalPlanning={this.openModalPlanning}
                   removeRecipeFromPlanning={this.removeRecipeFromPlanning}
                   deleteRecipe={this.deleteRecipe}
+                  isIntoModal={false}
                 />
               )}
             />
@@ -291,7 +317,8 @@ class AppRouter extends Component {
               removeRecipeFromPlanning={
                 this.removeRecipeFromPlanning_fromModalRecipe
               }
-              deleteRecipe={undefined}
+              isIntoModal={true}
+              changeNbPerson={this.changeNbPersonMealRecipe}
             />
           </Modal>
         </div>

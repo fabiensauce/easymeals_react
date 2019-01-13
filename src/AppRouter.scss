@@ -176,6 +176,18 @@ body {
           display: inline-block;
           margin-left: 15px;
         }
+        .nbPerson {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+        .nbPersonMinus,
+        .nbPersonPlus {
+          cursor: pointer;
+        }
+        .nbPersonMinus.notAllowed {
+          color: red;
+          cursor: not-allowed;
+        }
         .favorite {
           cursor: pointer;
           .isFavorite {

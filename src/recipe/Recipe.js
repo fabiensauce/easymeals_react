@@ -1,12 +1,15 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import ChooseNbPerson from "../planning/ChooseNbPerson";
 function Recipe({
   recipe,
   toogleFavorite,
   openModalPlanning,
   removeRecipeFromPlanning,
-  deleteRecipe
+  deleteRecipe,
+  isIntoModal,
+  changeNbPerson
 }) {
   let intoPlanning = recipe.isIntoPlanning ? "isIntoPlanning" : "";
   return (
@@ -15,15 +18,24 @@ function Recipe({
         <div className="name">
           {recipe.name} ({recipe.id})
         </div>
-        {deleteRecipe && (
+        {!isIntoModal && (
           <div className="deleteRecipe" onClick={() => deleteRecipe(recipe)}>
             <FontAwesomeIcon icon={["fas", "trash-alt"]} />
           </div>
         )}
         <div className="right">
           <div className="pers">
-            <FontAwesomeIcon icon="users" />
-            {" " + recipe.nbPerson}
+            {isIntoModal ? (
+              <ChooseNbPerson
+                nbPerson={recipe.nbPerson}
+                changeNbPerson={changeNbPerson}
+                recipe={recipe}
+              />
+            ) : (
+              <div>
+                <FontAwesomeIcon icon="users" /> {" " + recipe.nbPerson}
+              </div>
+            )}
           </div>
           <div className="favorite" onClick={() => toogleFavorite(recipe)}>
             <FontAwesomeIcon
@@ -72,15 +84,3 @@ function Recipe({
 }
 
 export default Recipe;
-
-// id: 0,
-// name: "crepes",
-// isFavorite: false,
-// nbPerson: 2,
-// ingredients: [
-//   { qty: 3, unit: "g", food: "egg" },
-//   { qty: 100, unit: "g", food: "flou" },
-//   { qty: 1, unit: "l", food: "milk" }
-// ],
-// description: "easy to do... start with the eggs and flour then add milk",
-// step:
