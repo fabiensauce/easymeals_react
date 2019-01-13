@@ -2,7 +2,8 @@ import React from "react";
 
 import "./home.scss";
 
-function Home() {
+function ContainerHome({ cssPage, setCssPage }) {
+  if (cssPage !== "home") setCssPage("home");
   return (
     <div className="home_container">
       <h2 className="titleWelcome">Bienvenue sur EasyMeals</h2>
@@ -31,4 +32,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ContainerHome;

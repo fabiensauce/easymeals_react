@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import _ from "lodash";
 
 import "./AppRouter.scss";
-import Home from "./home/Home.js";
+import ContainerHome from "./home/ContainerHome.js";
 import ContainerRecipe from "./recipe/ContainerRecipe.js";
 import ContainerPlanning from "./planning/ContainerPlanning.js";
 import Planning from "./planning/Planning";
@@ -20,7 +20,7 @@ Modal.setAppElement("#root");
 
 class AppRouter extends Component {
   state = {
-    page: "home",
+    cssPage: "home",
     recipes: [],
     nbPerson: undefined,
     meals_db: [],
@@ -107,9 +107,10 @@ class AppRouter extends Component {
   /// EVENTS - all Arrow fx for binding !
   ///////////////////////////////////////////
 
-  setPage = page => {
-    this.setState({ page });
+  setCssPage = cssPage => {
+    this.setState({ cssPage });
   };
+
   /// FROM RECIPE
   ///////////////////////////////////////////
 
@@ -253,37 +254,41 @@ class AppRouter extends Component {
     return (
       <Router>
         <div className="appRouter">
-          <ul className={`nav ${this.state.page}`}>
+          <ul className={`nav ${this.state.cssPage}`}>
             <li className="liEasyMeal">EasyMeals</li>
             <li>
-              <Link to="/" onClick={() => this.setPage("home")}>
-                Home
-              </Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/recipe" onClick={() => this.setPage("recipe")}>
-                Recipe
-              </Link>
+              <Link to="/recipe">Recipe</Link>
             </li>
             <li>
-              <Link to="/planning" onClick={() => this.setPage("planning")}>
-                Planning
-              </Link>
+              <Link to="/planning">Planning</Link>
             </li>
             <li>
-              <Link to="/errand" onClick={() => this.setPage("errand")}>
-                Errand
-              </Link>
+              <Link to="/errand">Errand</Link>
             </li>
           </ul>
 
           <div className="route">
-            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <ContainerHome
+                  {...props}
+                  cssPage={this.state.cssPage}
+                  setCssPage={this.setCssPage}
+                />
+              )}
+            />
             <Route
               path="/recipe"
               render={props => (
                 <ContainerRecipe
                   {...props}
+                  cssPage={this.state.cssPage}
+                  setCssPage={this.setCssPage}
                   recipes={this.state.recipes}
                   createRecipe={this.createRecipe}
                   toogleFavorite={this.toogleFavorite}
@@ -299,6 +304,8 @@ class AppRouter extends Component {
               render={props => (
                 <ContainerPlanning
                   {...props}
+                  cssPage={this.state.cssPage}
+                  setCssPage={this.setCssPage}
                   meals={this.state.meals}
                   nbPerson={this.state.nbPerson}
                   changeNbPerson={this.changeNbPerson}
@@ -306,7 +313,16 @@ class AppRouter extends Component {
                 />
               )}
             />
-            <Route path="/errand" render={props => <ContainerErrand />} />
+            <Route
+              path="/errand"
+              render={props => (
+                <ContainerErrand
+                  cssPage={this.state.cssPage}
+                  setCssPage={this.setCssPage}
+                  meals={this.state.meals}
+                />
+              )}
+            />
           </div>
 
           <Modal

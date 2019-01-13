@@ -3,37 +3,33 @@ import React, { Component } from "react";
 import "./ContainerRecipe.scss";
 import ListRecipe from "./ListRecipe";
 
-class ContainerRecipe extends Component {
-  // state = {};
-  // componentDidMount() {
-  //   // console.log(" euuuhhh component did mount ??? ");
-  // }
-  render() {
-    const {
-      recipes,
-      createRecipe,
-      toogleFavorite,
-      openModalPlanning,
-      removeRecipeFromPlanning,
-      deleteRecipe,
-      isIntoModal
-    } = this.props;
-    return (
-      <div className="containerRecipe">
-        <div className="btn" onClick={createRecipe}>
-          create new recipe +
-        </div>
-        <ListRecipe
-          recipes={recipes}
-          toogleFavorite={toogleFavorite}
-          openModalPlanning={openModalPlanning}
-          removeRecipeFromPlanning={removeRecipeFromPlanning}
-          deleteRecipe={deleteRecipe}
-          isIntoModal={isIntoModal}
-        />
+function ContainerRecipe({
+  cssPage,
+  setCssPage,
+  recipes,
+  createRecipe,
+  toogleFavorite,
+  openModalPlanning,
+  removeRecipeFromPlanning,
+  deleteRecipe,
+  isIntoModal
+}) {
+  if (cssPage !== "recipe") setCssPage("recipe");
+  return (
+    <div className="containerRecipe">
+      <div className="btn" onClick={createRecipe}>
+        create new recipe +
       </div>
-    );
-  }
+      <ListRecipe
+        recipes={recipes}
+        toogleFavorite={toogleFavorite}
+        openModalPlanning={openModalPlanning}
+        removeRecipeFromPlanning={removeRecipeFromPlanning}
+        deleteRecipe={deleteRecipe}
+        isIntoModal={isIntoModal}
+      />
+    </div>
+  );
 }
 
 export default ContainerRecipe;
