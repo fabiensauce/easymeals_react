@@ -13,8 +13,8 @@ function Meal({ meal, nbPersonGlobal, onClickMeal }) {
   };
 
   return (
-    <td>
-      <div className="meal" onClick={() => onClickMeal(meal)}>
+    <td onClick={() => onClickMeal(meal)}>
+      <div className="meal">
         {meal.recipes.map((recipe, index) => (
           <div className="recipeName" key={index}>
             {recipe.name}

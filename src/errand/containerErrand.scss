@@ -14,6 +14,17 @@
     // overflow-y: auto;
 
     .errand {
+      .faChecked {
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .value {
+        cursor: pointer;
+      }
+      .value.checked {
+        text-decoration: line-through;
+      }
     }
     .errand.classic {
       margin-bottom: 7px;
@@ -23,7 +34,7 @@
       font-family: "Architects Daughter", cursive;
       margin-bottom: 0;
       .value {
-        margin-right: 10px;
+        margin-right: 20px;
       }
       .delete {
         cursor: pointer;

@@ -8,7 +8,9 @@ import { _computeErrands } from "./UtilsErrand";
 
 class ContainerErrand extends Component {
   state = {
-    customErrands: []
+    classicErrands: [],
+    customErrands: [],
+    isLoadClassicErrands: false
   };
 
   componentDidMount() {
@@ -16,10 +18,17 @@ class ContainerErrand extends Component {
     if (cssPage !== "errand") setCssPage("errand");
 
     this.inputCustom = React.createRef();
-
     Services.getCustomErrands().then(dataCustomErrands => {
       this.setState({ customErrands: dataCustomErrands });
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.state.hasLoadClassicErrands && nextProps.meals.length > 0) {
+      let classicErrands = _computeErrands(nextProps.meals);
+      this.setState({ classicErrands, hasLoadClassicErrands: true });
+    }
+    return true;
   }
 
   // Arrow fx for binding
@@ -41,22 +50,49 @@ class ContainerErrand extends Component {
       this.setState({ customErrands });
     });
   }
+  toggleChk(custom) {
+    custom.isChecked = !custom.isChecked;
+    let { classicErrands, customErrands } = this.state;
+    this.setState({ classicErrands, customErrands });
+  }
 
   render() {
-    let { meals } = this.props;
-    let errands = _computeErrands(meals);
+    let isChecked = errand => (errand.isChecked ? "checked " : "");
+    const faIconCheck = errand =>
+      errand.isChecked ? (
+        <FontAwesomeIcon icon={["far", "check-square"]} />
+      ) : (
+        <FontAwesomeIcon icon={["far", "square"]} />
+      );
+
     return (
       <div className="container_errand">
         <div className="listErrand">
-          {errands.map((errand, index) => (
+          {this.state.classicErrands.map((errand, index) => (
             <div className="errand classic" key={index}>
-              {errand.qty + " " + errand.unit + " " + errand.food}
+              <div className="faChecked" onClick={() => this.toggleChk(errand)}>
+                {faIconCheck(errand)}
+              </div>
+              <span
+                className={`value ${isChecked(errand)}`}
+                onClick={() => this.toggleChk(errand)}
+              >
+                {errand.qty + " " + errand.unit + " " + errand.food}
+              </span>
             </div>
           ))}
 
           {this.state.customErrands.map((custom, index) => (
             <div className="errand custom" key={custom.id}>
-              <span className="value">{custom.value} </span>
+              <div className="faChecked" onClick={() => this.toggleChk(custom)}>
+                {faIconCheck(custom)}
+              </div>
+              <span
+                className={`value ${isChecked(custom)}`}
+                onClick={() => this.toggleChk(custom)}
+              >
+                {custom.value}
+              </span>
               <span className="delete" onClick={() => this.delete(custom)}>
                 <FontAwesomeIcon icon={["fas", "trash-alt"]} />
               </span>
