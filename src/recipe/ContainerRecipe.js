@@ -1,5 +1,7 @@
 import React from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./ContainerRecipe.scss";
 import ListRecipe from "./ListRecipe";
 
@@ -17,8 +19,11 @@ function ContainerRecipe({
   if (cssPage !== "recipe") setCssPage("recipe");
   return (
     <div className="containerRecipe">
-      <div className="btn" onClick={createRecipe}>
-        create new recipe +
+      <div className="addRecipe" onClick={createRecipe}>
+        <span className="addTxt">Add fake recipe</span>
+        <span className="addBtn">
+          <FontAwesomeIcon icon="plus-square" />
+        </span>
       </div>
       <ListRecipe
         recipes={recipes}
