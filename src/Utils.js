@@ -1,12 +1,12 @@
 import _ from "lodash";
 
 const Utils = {
-  computeMeals_from_meals_db: (meals_db, stateRecipes, stateNbPerson) => {
-    const _computeRecipe_from_recipe_db = recipe_db => {
+  computeMealsFromMealsDB: (mealsDB, stateRecipes, stateNbPerson) => {
+    const _computeRecipe_from_recipeDB = recipeDB => {
       let { nbPerson, ingredients, ...others } = stateRecipes.find(
-        recipe => recipe.id === recipe_db.id
+        recipe => recipe.id === recipeDB.id
       );
-      let newNbPerson = recipe_db.nbPerson || stateNbPerson;
+      let newNbPerson = recipeDB.nbPerson || stateNbPerson;
       let newIngredients = ingredients.map(ingredient => {
         let { qty, ...others } = ingredient;
         let newQty = (qty * newNbPerson) / nbPerson;
@@ -19,18 +19,18 @@ const Utils = {
         ...others
       };
     };
-    return meals_db.map(meal_db => ({
-      id: meal_db.id,
-      recipes: meal_db.recipes.map(_computeRecipe_from_recipe_db)
+    return mealsDB.map(mealDB => ({
+      id: mealDB.id,
+      recipes: mealDB.recipes.map(_computeRecipe_from_recipeDB)
     }));
   },
 
-  removeFromPlanning: (recipeRemove, meals_db) => {
-    let newMeal_db = meals_db.find(meal_db =>
-      meal_db.recipes.find(recipe_db => recipe_db.id === recipeRemove.id)
+  removeFromPlanning: (recipeRemove, mealsDB) => {
+    let newMealDB = mealsDB.find(mealDB =>
+      mealDB.recipes.find(recipeDB => recipeDB.id === recipeRemove.id)
     );
-    _.remove(newMeal_db.recipes, recipe_db => recipe_db.id === recipeRemove.id);
-    return newMeal_db;
+    _.remove(newMealDB.recipes, recipeDB => recipeDB.id === recipeRemove.id);
+    return newMealDB;
   },
 
   fakeRecipe: () => {

@@ -1,6 +1,6 @@
 {
   "nbPerson": {
-    "value": 4
+    "value": 12
   },
   "customErrands": [
     {
@@ -31,16 +31,15 @@
     },
     {
       "id": 12,
-      "recipes": []
+      "recipes": [
+        {
+          "id": 2
+        }
+      ]
     },
     {
       "id": 13,
-      "recipes": [
-        {
-          "id": 0,
-          "nbPerson": 5
-        }
-      ]
+      "recipes": []
     },
     {
       "id": 14,
@@ -72,7 +71,15 @@
     },
     {
       "id": 24,
-      "recipes": []
+      "recipes": [
+        {
+          "id": 15,
+          "nbPerson": 9
+        },
+        {
+          "id": 0
+        }
+      ]
     },
     {
       "id": 25,
@@ -85,20 +92,20 @@
   ],
   "recipes": [
     {
-      "nbPerson": 4,
+      "nbPerson": 12,
       "ingredients": [
         {
-          "qty": 6,
+          "qty": 18,
           "unit": "g",
           "food": "egg"
         },
         {
-          "qty": 200,
+          "qty": 600,
           "unit": "g",
           "food": "flour"
         },
         {
-          "qty": 2,
+          "qty": 6,
           "unit": "l",
           "food": "milk"
         }
@@ -107,7 +114,10 @@
       "name": "crepes",
       "isFavorite": true,
       "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "isIntoPlanning": true
     },
     {
@@ -155,40 +165,40 @@
       "isIntoPlanning": false
     },
     {
-      "nbPerson": 8,
+      "nbPerson": 12,
       "ingredients": [
         {
-          "qty": 1000,
+          "qty": 1500,
           "unit": "g",
           "food": "steak"
         },
         {
-          "qty": 2,
+          "qty": 3,
           "unit": "",
           "food": "spice mix packet"
         },
         {
-          "qty": 16,
+          "qty": 24,
           "unit": "",
           "food": "tortilla"
         },
         {
-          "qty": 2,
+          "qty": 3,
           "unit": "",
           "food": "avocado"
         },
         {
-          "qty": 2,
+          "qty": 3,
           "unit": "",
           "food": "salad"
         },
         {
-          "qty": 10,
+          "qty": 15,
           "unit": "cl",
           "food": "creme fraiche"
         },
         {
-          "qty": 4,
+          "qty": 6,
           "unit": "",
           "food": "tomato"
         }
@@ -204,7 +214,7 @@
         "when ready put torillas in microwaves",
         "mix in your plates meat with salad tomato and avocado"
       ],
-      "isIntoPlanning": false
+      "isIntoPlanning": true
     },
     {
       "nbPerson": 4,
@@ -229,7 +239,10 @@
       "name": "KABOOMMM",
       "isFavorite": true,
       "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "isIntoPlanning": false
     },
     {
@@ -254,13 +267,16 @@
       "name": "salade CESAR ",
       "isFavorite": false,
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "id": 4,
       "isIntoPlanning": false
     },
     {
       "name": "pizza",
-      "isFavorite": true,
+      "isFavorite": false,
       "nbPerson": 14,
       "ingredients": [
         {
@@ -280,9 +296,12 @@
         }
       ],
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "id": 15,
-      "isIntoPlanning": false
+      "isIntoPlanning": true
     },
     {
       "nbPerson": 4,
@@ -306,7 +325,10 @@
       "name": "omelette",
       "isFavorite": true,
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "id": 16,
       "isIntoPlanning": false
     },
@@ -332,7 +354,10 @@
       "name": "haricot poisson",
       "isFavorite": true,
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "id": 17,
       "isIntoPlanning": false
     },
@@ -358,7 +383,10 @@
       "name": "salade CESAR ",
       "isFavorite": false,
       "description": "blablablak",
-      "steps": ["mix flour and eggs", "add slowly milk"],
+      "steps": [
+        "mix flour and eggs",
+        "add slowly milk"
+      ],
       "id": 20,
       "isIntoPlanning": false
     }

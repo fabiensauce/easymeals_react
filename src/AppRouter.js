@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import _ from "lodash";
 
 import "./AppRouter.scss";
 import ContainerHome from "./home/ContainerHome.js";
@@ -24,20 +23,20 @@ class AppRouter extends Component {
     cssPage: "home",
     recipes: [],
     nbPerson: undefined,
-    meals_db: [],
+    mealsDB: [],
     meals: [],
     isModalPlanningOpen: false,
     isModalRecipeOpen: false,
-    recipes_toDisplayModal: [],
-    recipe_toAdd: undefined,
-    idMeal_openModal: undefined
+    recipesMeal: [],
+    recipeForPlanning: undefined,
+    idMealOpenModal: undefined
   };
 
   componentDidMount() {
     Services.getNbPerson().then(dataNbPerson => {
       Services.getRecipes().then(dataRecipes => {
         Services.getMeals().then(dataMeals => {
-          const newMeals = Utils.computeMeals_from_meals_db(
+          const newMeals = Utils.computeMealsFromMealsDB(
             dataMeals,
             dataRecipes,
             dataNbPerson.value
@@ -45,7 +44,7 @@ class AppRouter extends Component {
           this.setState({
             nbPerson: dataNbPerson.value,
             recipes: dataRecipes,
-            meals_db: dataMeals,
+            mealsDB: dataMeals,
             meals: newMeals
           });
         });
@@ -79,14 +78,14 @@ class AppRouter extends Component {
   };
 
   deleteRecipe = recipe => {
-    const { recipes, nbPerson: nbP, meals_db } = this.state;
+    const { recipes, nbPerson: nbP, mealsDB } = this.state;
     if (recipe.isIntoPlanning) {
-      const newMeal_db = Utils.removeFromPlanning(recipe, meals_db);
-      const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
+      const newMealDB = Utils.removeFromPlanning(recipe, mealsDB);
+      const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, nbP);
       const newRecipes = recipes.filter(r => r.id !== recipe.id);
       Services.deleteRecipe(recipe.id).then(() => {
-        Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
-          this.setState({ recipes: newRecipes, meals_db, meals: newMeals });
+        Services.updateMeal(newMealDB.id, newMealDB).then(() => {
+          this.setState({ recipes: newRecipes, mealsDB, meals: newMeals });
         });
       });
     } else {
@@ -98,56 +97,48 @@ class AppRouter extends Component {
   };
 
   openModalPlanning = recipe => {
-    this.setState({ isModalPlanningOpen: true, recipe_toAdd: recipe });
+    this.setState({ isModalPlanningOpen: true, recipeForPlanning: recipe });
   };
 
   removeRecipeFromPlanning = recipe => {
-    const { recipes, nbPerson: nbP, meals_db } = this.state;
-    const newMeal_db = Utils.removeFromPlanning(recipe, meals_db);
-    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
+    const { recipes, nbPerson: nbP, mealsDB } = this.state;
+    const newMealDB = Utils.removeFromPlanning(recipe, mealsDB);
+    const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, nbP);
     recipe.isIntoPlanning = false;
     Services.updateRecipe(recipe.id, recipe).then(() => {
-      Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
-        this.setState({ recipes, meals_db, meals: newMeals });
+      Services.updateMeal(newMealDB.id, newMealDB).then(() => {
+        this.setState({ recipes, mealsDB, meals: newMeals });
       });
     });
   };
 
-  /// FROM MODAL_RECIPE (open from Planning)
+  /// FROM MODAL RECIPE (open from Planning)
   ///////////////////////////////////////////
 
   closeModalRecipe = meal => {
     this.setState({ isModalRecipeOpen: false });
   };
 
-  _updateRecipe_db_nbPerson(recipeRemove, meals_db) {
-    let newMeal_db = meals_db.find(meal_db =>
-      meal_db.recipes.find(recipe_db => recipe_db.id === recipeRemove.id)
-    );
-    _.remove(newMeal_db.recipes, recipe_db => recipe_db.id === recipeRemove.id);
-    return newMeal_db;
-  }
-
   changeNbPersonMealRecipe = (newNb, recipe) => {
-    const { recipes, meals_db, nbPerson: nbP, idMeal_openModal } = this.state;
-    let newMeal_db = meals_db.find(meal_db => meal_db.id === idMeal_openModal);
-    let recipe_db = newMeal_db.recipes.find(r_db => r_db.id === recipe.id);
-    recipe_db.nbPerson = newNb;
-    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
-    const meal_openModal = newMeals.find(meal => meal.id === idMeal_openModal);
-    Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
+    const { recipes, mealsDB, nbPerson: nbP, idMealOpenModal } = this.state;
+    let newMealDB = mealsDB.find(mealDB => mealDB.id === idMealOpenModal);
+    let recipeDB = newMealDB.recipes.find(rDB => rDB.id === recipe.id);
+    recipeDB.nbPerson = newNb;
+    const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, nbP);
+    const mealOpenModal = newMeals.find(meal => meal.id === idMealOpenModal);
+    Services.updateMeal(newMealDB.id, newMealDB).then(() => {
       this.setState({
-        meals_db,
+        mealsDB,
         meals: newMeals,
-        recipes_toDisplayModal: meal_openModal.recipes
+        recipesMeal: mealOpenModal.recipes
       });
     });
   };
 
-  removeRecipeFromPlanning_fromModalRecipe = recipeFromMeal => {
+  removeRecipeFromPlanningFromModal = recipeMeal => {
     this.closeModalRecipe();
-    // recipeFromMeal is a copy of recipe
-    let recipe = this.state.recipes.find(r => recipeFromMeal.id === r.id);
+    // recipeMeal is a copy of recipe
+    let recipe = this.state.recipes.find(r => recipeMeal.id === r.id);
     this.removeRecipeFromPlanning(recipe);
   };
 
@@ -156,8 +147,8 @@ class AppRouter extends Component {
 
   changeNbPerson = newNb => {
     if (newNb <= 0) return;
-    const { recipes, meals_db } = this.state;
-    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, newNb);
+    const { recipes, mealsDB } = this.state;
+    const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, newNb);
     Services.updateNbPerson(newNb).then(() => {
       this.setState({ nbPerson: newNb, meals: newMeals });
     });
@@ -167,13 +158,13 @@ class AppRouter extends Component {
     if (meal.recipes.length > 0) {
       this.setState({
         isModalRecipeOpen: true,
-        recipes_toDisplayModal: meal.recipes,
-        idMeal_openModal: meal.id
+        recipesMeal: meal.recipes,
+        idMealOpenModal: meal.id
       });
     }
   };
 
-  /// FROM MODAL_PLANNING (open from Recipe)
+  /// FROM MODAL PLANNING (open from Recipe)
   ///////////////////////////////////////////
 
   closeModalPlanning = () => {
@@ -182,14 +173,14 @@ class AppRouter extends Component {
 
   mealPlanningChosen = meal => {
     this.closeModalPlanning();
-    const { recipes, nbPerson: nbP, meals_db, recipe_toAdd } = this.state;
-    recipe_toAdd.isIntoPlanning = true;
-    let newMeal_db = meals_db.find(meal_db => meal_db.id === meal.id);
-    newMeal_db.recipes.push({ id: recipe_toAdd.id });
-    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
-    Services.updateRecipe(recipe_toAdd.id, recipe_toAdd).then(() => {
-      Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
-        this.setState({ recipes, meals_db, meals: newMeals });
+    const { recipes, nbPerson: nbP, mealsDB, recipeForPlanning } = this.state;
+    recipeForPlanning.isIntoPlanning = true;
+    let newMealDB = mealsDB.find(mealDB => mealDB.id === meal.id);
+    newMealDB.recipes.push({ id: recipeForPlanning.id });
+    const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, nbP);
+    Services.updateRecipe(recipeForPlanning.id, recipeForPlanning).then(() => {
+      Services.updateMeal(newMealDB.id, newMealDB).then(() => {
+        this.setState({ recipes, mealsDB, meals: newMeals });
       });
     });
   };
@@ -293,11 +284,9 @@ class AppRouter extends Component {
             overlayClassName="modalOverlay"
           >
             <ListRecipe
-              recipes={this.state.recipes_toDisplayModal}
+              recipes={this.state.recipesMeal}
               toogleFavorite={this.toogleFavorite}
-              removeRecipeFromPlanning={
-                this.removeRecipeFromPlanning_fromModalRecipe
-              }
+              removeRecipeFromPlanning={this.removeRecipeFromPlanningFromModal}
               isIntoModal={true}
               changeNbPerson={this.changeNbPersonMealRecipe}
             />

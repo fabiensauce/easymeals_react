@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Meal({ meal, nbPersonGlobal, onClickMeal }) {
   const displayNbPers = recipe => {
     return (
+      nbPersonGlobal &&
       nbPersonGlobal !== recipe.nbPerson && (
         <div className="nbPersonDiff">
           <FontAwesomeIcon icon="users" /> {" " + recipe.nbPerson}
@@ -11,7 +12,6 @@ function Meal({ meal, nbPersonGlobal, onClickMeal }) {
       )
     );
   };
-
   return (
     <td onClick={() => onClickMeal(meal)}>
       <div className="meal">
