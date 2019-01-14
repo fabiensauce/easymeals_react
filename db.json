@@ -1,4 +1,25 @@
 {
+  "nbPerson": {
+    "value": 4
+  },
+  "customErrands": [
+    {
+      "value": "salt",
+      "id": 6
+    },
+    {
+      "value": "toilet paper",
+      "id": 7
+    },
+    {
+      "value": "butter",
+      "id": 9
+    },
+    {
+      "value": "soap",
+      "id": 10
+    }
+  ],
   "meals": [
     {
       "id": 10,
@@ -14,7 +35,12 @@
     },
     {
       "id": 13,
-      "recipes": []
+      "recipes": [
+        {
+          "id": 0,
+          "nbPerson": 5
+        }
+      ]
     },
     {
       "id": 14,
@@ -42,12 +68,7 @@
     },
     {
       "id": 23,
-      "recipes": [
-        16,
-        4,
-        0,
-        2
-      ]
+      "recipes": []
     },
     {
       "id": 24,
@@ -64,38 +85,32 @@
   ],
   "recipes": [
     {
-      "id": 0,
-      "name": "crepes",
-      "isFavorite": true,
-      "nbPerson": 2,
+      "nbPerson": 4,
       "ingredients": [
         {
-          "qty": 3,
+          "qty": 6,
           "unit": "g",
           "food": "egg"
         },
         {
-          "qty": 100,
+          "qty": 200,
           "unit": "g",
-          "food": "flou"
+          "food": "flour"
         },
         {
-          "qty": 1,
+          "qty": 2,
           "unit": "l",
           "food": "milk"
         }
       ],
+      "id": 0,
+      "name": "crepes",
+      "isFavorite": true,
       "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
+      "steps": ["mix flour and eggs", "add slowly milk"],
       "isIntoPlanning": true
     },
     {
-      "id": 1,
-      "name": "lasagna",
-      "isFavorite": false,
       "nbPerson": 4,
       "ingredients": [
         {
@@ -117,8 +132,16 @@
           "qty": 50,
           "unit": "g",
           "food": "parmesan"
+        },
+        {
+          "qty": 1,
+          "unit": "",
+          "food": "tomato"
         }
       ],
+      "id": 1,
+      "name": "lasagna",
+      "isFavorite": false,
       "description": "",
       "steps": [
         "cook in a pan steak with tomato sauce",
@@ -132,42 +155,47 @@
       "isIntoPlanning": false
     },
     {
-      "id": 2,
-      "name": "burritos",
-      "isFavorite": true,
-      "nbPerson": 4,
+      "nbPerson": 8,
       "ingredients": [
         {
-          "qty": 500,
+          "qty": 1000,
           "unit": "g",
           "food": "steak"
         },
         {
-          "qty": 1,
+          "qty": 2,
           "unit": "",
           "food": "spice mix packet"
         },
         {
-          "qty": 8,
+          "qty": 16,
           "unit": "",
           "food": "tortilla"
         },
         {
-          "qty": 1,
+          "qty": 2,
           "unit": "",
           "food": "avocado"
         },
         {
-          "qty": 1,
+          "qty": 2,
           "unit": "",
           "food": "salad"
         },
         {
-          "qty": 2,
+          "qty": 10,
+          "unit": "cl",
+          "food": "creme fraiche"
+        },
+        {
+          "qty": 4,
           "unit": "",
           "food": "tomato"
         }
       ],
+      "id": 2,
+      "name": "burritos",
+      "isFavorite": true,
       "description": "",
       "steps": [
         "cook in a pan steak",
@@ -176,65 +204,59 @@
         "when ready put torillas in microwaves",
         "mix in your plates meat with salad tomato and avocado"
       ],
-      "isIntoPlanning": true
+      "isIntoPlanning": false
     },
     {
-      "id": 3,
-      "name": "KABOOMMM",
-      "isFavorite": false,
-      "nbPerson": 19,
+      "nbPerson": 4,
       "ingredients": [
         {
-          "qty": 3,
+          "qty": 0.6,
           "unit": "kg",
           "food": "of CRAZY"
         },
         {
-          "qty": 100,
+          "qty": 21.1,
           "unit": "g",
-          "food": "flou"
+          "food": "flour"
         },
         {
-          "qty": 1,
+          "qty": 0.2,
           "unit": "l",
           "food": "milk"
         }
       ],
+      "id": 3,
+      "name": "KABOOMMM",
+      "isFavorite": true,
       "description": "easy to do... start with the eggs and flour then add milk",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
+      "steps": ["mix flour and eggs", "add slowly milk"],
       "isIntoPlanning": false
     },
     {
-      "name": "salade CESAR ",
-      "isFavorite": false,
-      "nbPerson": 14,
+      "nbPerson": 4,
       "ingredients": [
         {
-          "qty": 3,
+          "qty": 0.9,
           "unit": "g",
           "food": "butter"
         },
         {
-          "qty": 100,
+          "qty": 28.6,
           "unit": "g",
-          "food": "flou"
+          "food": "flour"
         },
         {
-          "qty": 1,
+          "qty": 0.3,
           "unit": "l",
           "food": "milk"
         }
       ],
+      "name": "salade CESAR ",
+      "isFavorite": false,
       "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
+      "steps": ["mix flour and eggs", "add slowly milk"],
       "id": 4,
-      "isIntoPlanning": true
+      "isIntoPlanning": false
     },
     {
       "name": "pizza",
@@ -249,7 +271,7 @@
         {
           "qty": 100,
           "unit": "g",
-          "food": "flou"
+          "food": "flour"
         },
         {
           "qty": 1,
@@ -258,69 +280,86 @@
         }
       ],
       "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
+      "steps": ["mix flour and eggs", "add slowly milk"],
       "id": 15,
       "isIntoPlanning": false
     },
     {
+      "nbPerson": 4,
+      "ingredients": [
+        {
+          "qty": 0.9,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 28.6,
+          "unit": "g",
+          "food": "flour"
+        },
+        {
+          "qty": 0.3,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
       "name": "omelette",
       "isFavorite": true,
-      "nbPerson": 14,
-      "ingredients": [
-        {
-          "qty": 3,
-          "unit": "g",
-          "food": "butter"
-        },
-        {
-          "qty": 100,
-          "unit": "g",
-          "food": "flou"
-        },
-        {
-          "qty": 1,
-          "unit": "l",
-          "food": "milk"
-        }
-      ],
       "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
+      "steps": ["mix flour and eggs", "add slowly milk"],
       "id": 16,
-      "isIntoPlanning": true
+      "isIntoPlanning": false
     },
     {
-      "name": "haricot poisson",
-      "isFavorite": true,
-      "nbPerson": 14,
+      "nbPerson": 21,
       "ingredients": [
         {
-          "qty": 3,
+          "qty": 5,
           "unit": "g",
           "food": "butter"
         },
         {
-          "qty": 100,
+          "qty": 150,
           "unit": "g",
-          "food": "flou"
+          "food": "flour"
         },
         {
-          "qty": 1,
+          "qty": 2,
           "unit": "l",
           "food": "milk"
         }
       ],
+      "name": "haricot poisson",
+      "isFavorite": true,
       "description": "blablablak",
-      "steps": [
-        "mix flour and eggs",
-        "add slowly milk"
-      ],
+      "steps": ["mix flour and eggs", "add slowly milk"],
       "id": 17,
+      "isIntoPlanning": false
+    },
+    {
+      "nbPerson": 4,
+      "ingredients": [
+        {
+          "qty": 1,
+          "unit": "g",
+          "food": "butter"
+        },
+        {
+          "qty": 29,
+          "unit": "g",
+          "food": "flour"
+        },
+        {
+          "qty": 0,
+          "unit": "l",
+          "food": "milk"
+        }
+      ],
+      "name": "salade CESAR ",
+      "isFavorite": false,
+      "description": "blablablak",
+      "steps": ["mix flour and eggs", "add slowly milk"],
+      "id": 20,
       "isIntoPlanning": false
     }
   ]
