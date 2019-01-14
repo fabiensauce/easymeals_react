@@ -10,6 +10,7 @@ import Planning from "./planning/Planning";
 import ListRecipe from "./recipe/ListRecipe";
 import ContainerErrand from "./errand/ContainerErrand";
 import Services from "./services/Services";
+import Utils from "./Utils";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -36,7 +37,7 @@ class AppRouter extends Component {
     Services.getNbPerson().then(dataNbPerson => {
       Services.getRecipes().then(dataRecipes => {
         Services.getMeals().then(dataMeals => {
-          const newMeals = this._computeMeals_from_meals_db(
+          const newMeals = Utils.computeMeals_from_meals_db(
             dataMeals,
             dataRecipes,
             dataNbPerson.value
@@ -53,57 +54,6 @@ class AppRouter extends Component {
   }
 
   ///////////////////////////////////////////
-  /// UTILS FUNCTIONS
-  ///////////////////////////////////////////
-
-  _computeMeals_from_meals_db(meals_db, stateRecipes, stateNbPerson) {
-    const _computeRecipe_from_recipe_db = recipe_db => {
-      let { nbPerson, ingredients, ...others } = stateRecipes.find(
-        recipe => recipe.id === recipe_db.id
-      );
-      let newNbPerson = recipe_db.nbPerson || stateNbPerson;
-      let newIngredients = ingredients.map(ingredient => {
-        let { qty, ...others } = ingredient;
-        let newQty = (qty * newNbPerson) / nbPerson;
-        return { qty: Number(newQty.toFixed(1)), ...others };
-      });
-      return {
-        nbPerson: newNbPerson,
-        ingredients: newIngredients,
-        ...others
-      };
-    };
-
-    return meals_db.map(meal_db => ({
-      id: meal_db.id,
-      recipes: meal_db.recipes.map(_computeRecipe_from_recipe_db)
-    }));
-  }
-
-  _removeFromPlanning(recipeRemove, meals_db) {
-    let newMeal_db = meals_db.find(meal_db =>
-      meal_db.recipes.find(recipe_db => recipe_db.id === recipeRemove.id)
-    );
-    _.remove(newMeal_db.recipes, recipe_db => recipe_db.id === recipeRemove.id);
-    return newMeal_db;
-  }
-
-  _fakeRecipe() {
-    return {
-      name: "salade CESAR ",
-      isFavorite: false,
-      nbPerson: 14,
-      ingredients: [
-        { qty: 3, unit: "g", food: "butter" },
-        { qty: 100, unit: "g", food: "flou" },
-        { qty: 1, unit: "l", food: "milk" }
-      ],
-      description: "blablablak",
-      steps: ["mix flour and eggs", "add slowly milk"]
-    };
-  }
-
-  ///////////////////////////////////////////
   /// EVENTS - all Arrow fx for binding !
   ///////////////////////////////////////////
 
@@ -115,7 +65,7 @@ class AppRouter extends Component {
   ///////////////////////////////////////////
 
   createRecipe = () => {
-    const recipe = this._fakeRecipe();
+    const recipe = Utils.fakeRecipe();
     Services.createRecipe(recipe).then(newRecipe => {
       this.setState({ recipes: [...this.state.recipes, newRecipe] });
     });
@@ -131,8 +81,8 @@ class AppRouter extends Component {
   deleteRecipe = recipe => {
     const { recipes, nbPerson: nbP, meals_db } = this.state;
     if (recipe.isIntoPlanning) {
-      const newMeal_db = this._removeFromPlanning(recipe, meals_db);
-      const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, nbP);
+      const newMeal_db = Utils.removeFromPlanning(recipe, meals_db);
+      const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
       const newRecipes = recipes.filter(r => r.id !== recipe.id);
       Services.deleteRecipe(recipe.id).then(() => {
         Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
@@ -153,8 +103,8 @@ class AppRouter extends Component {
 
   removeRecipeFromPlanning = recipe => {
     const { recipes, nbPerson: nbP, meals_db } = this.state;
-    const newMeal_db = this._removeFromPlanning(recipe, meals_db);
-    const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, nbP);
+    const newMeal_db = Utils.removeFromPlanning(recipe, meals_db);
+    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
     recipe.isIntoPlanning = false;
     Services.updateRecipe(recipe.id, recipe).then(() => {
       Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
@@ -183,7 +133,7 @@ class AppRouter extends Component {
     let newMeal_db = meals_db.find(meal_db => meal_db.id === idMeal_openModal);
     let recipe_db = newMeal_db.recipes.find(r_db => r_db.id === recipe.id);
     recipe_db.nbPerson = newNb;
-    const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, nbP);
+    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
     const meal_openModal = newMeals.find(meal => meal.id === idMeal_openModal);
     Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
       this.setState({
@@ -194,8 +144,10 @@ class AppRouter extends Component {
     });
   };
 
-  removeRecipeFromPlanning_fromModalRecipe = recipe => {
+  removeRecipeFromPlanning_fromModalRecipe = recipeFromMeal => {
     this.closeModalRecipe();
+    // recipeFromMeal is a copy of recipe
+    let recipe = this.state.recipes.find(r => recipeFromMeal.id === r.id);
     this.removeRecipeFromPlanning(recipe);
   };
 
@@ -205,7 +157,7 @@ class AppRouter extends Component {
   changeNbPerson = newNb => {
     if (newNb <= 0) return;
     const { recipes, meals_db } = this.state;
-    const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, newNb);
+    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, newNb);
     Services.updateNbPerson(newNb).then(() => {
       this.setState({ nbPerson: newNb, meals: newMeals });
     });
@@ -234,7 +186,7 @@ class AppRouter extends Component {
     recipe_toAdd.isIntoPlanning = true;
     let newMeal_db = meals_db.find(meal_db => meal_db.id === meal.id);
     newMeal_db.recipes.push({ id: recipe_toAdd.id });
-    const newMeals = this._computeMeals_from_meals_db(meals_db, recipes, nbP);
+    const newMeals = Utils.computeMeals_from_meals_db(meals_db, recipes, nbP);
     Services.updateRecipe(recipe_toAdd.id, recipe_toAdd).then(() => {
       Services.updateMeal(newMeal_db.id, newMeal_db).then(() => {
         this.setState({ recipes, meals_db, meals: newMeals });
@@ -243,11 +195,7 @@ class AppRouter extends Component {
   };
 
   ///////////////////////////////////////////
-  ///////////////////////////////////////////
-  ///////////////////////////////////////////
   /// VIEW
-  ///////////////////////////////////////////
-  ///////////////////////////////////////////
   ///////////////////////////////////////////
 
   render() {

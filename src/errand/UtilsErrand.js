@@ -23,5 +23,6 @@ function _mergeIngredients(ingredients) {
 }
 
 export function _computeErrands(meals) {
-  return _mergeIngredients(_flattenMeals(meals));
+  let mergedIng = _mergeIngredients(_flattenMeals(meals));
+  return _.sortBy(mergedIng, [ing => ing.food]);
 }

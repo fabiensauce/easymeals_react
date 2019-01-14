@@ -4,7 +4,7 @@ import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./containerErrand.scss";
-import { _computeErrands } from "./UtilsErrand";
+import { _computeErrands } from "./utilsErrand";
 
 class ContainerErrand extends Component {
   state = {
@@ -31,6 +31,9 @@ class ContainerErrand extends Component {
     return true;
   }
 
+  handleKeyPress = event => {
+    if (event.key === "Enter") this.addCustom();
+  };
   // Arrow fx for binding
   addCustom = () => {
     const inputCustomValue = this.inputCustom.current.value;
@@ -105,6 +108,7 @@ class ContainerErrand extends Component {
             type="text"
             ref={this.inputCustom}
             placeholder="custom"
+            onKeyPress={this.handleKeyPress}
           />
           <span className="add" onClick={this.addCustom}>
             <FontAwesomeIcon icon="plus-square" />
