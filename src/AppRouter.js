@@ -285,7 +285,6 @@ class AppRouter extends Component {
           >
             <ListRecipe
               recipes={this.state.recipesMeal}
-              toogleFavorite={this.toogleFavorite}
               removeRecipeFromPlanning={this.removeRecipeFromPlanningFromModal}
               isIntoModal={true}
               changeNbPerson={this.changeNbPersonMealRecipe}

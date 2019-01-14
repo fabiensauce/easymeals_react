@@ -37,12 +37,15 @@ function Recipe({
               </div>
             )}
           </div>
-          <div className="favorite" onClick={() => toogleFavorite(recipe)}>
-            <FontAwesomeIcon
-              className={recipe.isFavorite ? "isFavorite" : "notFavorite"}
-              icon={["fas", "heart"]}
-            />
-          </div>
+
+          {!isIntoModal && (
+            <div className="favorite" onClick={() => toogleFavorite(recipe)}>
+              <FontAwesomeIcon
+                className={recipe.isFavorite ? "isFavorite" : "notFavorite"}
+                icon={["fas", "heart"]}
+              />
+            </div>
+          )}
 
           {recipe.isIntoPlanning ? (
             <div
