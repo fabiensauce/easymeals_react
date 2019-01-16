@@ -9,10 +9,20 @@
   .listErrand {
     margin: 40px;
     margin-bottom: 100px;
+    padding: 25px;
+    width: 400px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
     // width: 500px;
     // max-height: 400px;
     // overflow-y: auto;
-
+    .title {
+      font-family: "Architects Daughter", cursive;
+      font-size: 25px;
+      color: #7dcfa4;
+      margin-bottom: 10px;
+    }
     .errand {
       .faChecked {
         cursor: pointer;
@@ -27,8 +37,10 @@
       }
     }
     .errand.classic {
-      margin-bottom: 7px;
-      font-size: 20px;
+      // margin-bottom: 7px;
+      // font-size: 20px;
+      font-family: "Architects Daughter", cursive;
+      margin-bottom: 0;
     }
     .errand.custom {
       font-family: "Architects Daughter", cursive;
@@ -45,9 +57,18 @@
       }
     }
   }
+  .classicList {
+    border-top: 1px solid #e6e6e6;
+    padding-top: 10px;
+  }
+  .customList {
+    border-top: 1px solid #e6e6e6;
+    padding-top: 6px;
+  }
+
   .addCustom {
     position: fixed;
-    padding: 20px 40px;
+    padding: 20px 65px;
     width: calc(100% - 80px);
     border-top: 1px solid #e6e6e6;
     background: #fff;

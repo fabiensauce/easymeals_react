@@ -71,36 +71,47 @@ class ContainerErrand extends Component {
     return (
       <div className="container_errand">
         <div className="listErrand">
-          {this.state.classicErrands.map((errand, index) => (
-            <div className="errand classic" key={index}>
-              <div className="faChecked" onClick={() => this.toggleChk(errand)}>
-                {faIconCheck(errand)}
+          <div className="title">Errand List</div>
+          <div className="classicList">
+            {this.state.classicErrands.map((errand, index) => (
+              <div className="errand classic" key={index}>
+                <div
+                  className="faChecked"
+                  onClick={() => this.toggleChk(errand)}
+                >
+                  {faIconCheck(errand)}
+                </div>
+                <span
+                  className={`value ${isChecked(errand)}`}
+                  onClick={() => this.toggleChk(errand)}
+                >
+                  {errand.qty + " " + errand.unit + " " + errand.food}
+                </span>
               </div>
-              <span
-                className={`value ${isChecked(errand)}`}
-                onClick={() => this.toggleChk(errand)}
-              >
-                {errand.qty + " " + errand.unit + " " + errand.food}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          {this.state.customErrands.map((custom, index) => (
-            <div className="errand custom" key={custom.id}>
-              <div className="faChecked" onClick={() => this.toggleChk(custom)}>
-                {faIconCheck(custom)}
+          <div className="customList">
+            {this.state.customErrands.map((custom, index) => (
+              <div className="errand custom" key={custom.id}>
+                <div
+                  className="faChecked"
+                  onClick={() => this.toggleChk(custom)}
+                >
+                  {faIconCheck(custom)}
+                </div>
+                <span
+                  className={`value ${isChecked(custom)}`}
+                  onClick={() => this.toggleChk(custom)}
+                >
+                  {custom.value}
+                </span>
+                <span className="delete" onClick={() => this.delete(custom)}>
+                  <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+                </span>
               </div>
-              <span
-                className={`value ${isChecked(custom)}`}
-                onClick={() => this.toggleChk(custom)}
-              >
-                {custom.value}
-              </span>
-              <span className="delete" onClick={() => this.delete(custom)}>
-                <FontAwesomeIcon icon={["fas", "trash-alt"]} />
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         <div className="addCustom">
           <input

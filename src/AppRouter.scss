@@ -71,12 +71,17 @@ body {
 .modalRecipe {
   top: 76px;
   padding: 30px;
-  width: 750px;
+  width: 650px;
   max-height: 500px;
   overflow-y: auto;
   border-radius: 10px;
   background-color: #282c34;
   color: white;
+  .listRecipe {
+    .recipe:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 .modalPlanning {
   width: 950px;
@@ -93,9 +98,9 @@ body {
 
   .table_whole {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.3);
     user-select: none;
 
     table {
@@ -160,8 +165,9 @@ body {
   margin: auto;
   width: 650px;
   .recipe {
-    border: 1px solid #e6e6e6;
+    border: 1px solid #a6a6a6; // #e6e6e6;
     border-radius: 3px;
+    box-shadow: 0 0px 40px 0px rgba(255, 255, 255, 0.15);
     padding: 8px 12px;
     margin-bottom: 20px;
     .header {
