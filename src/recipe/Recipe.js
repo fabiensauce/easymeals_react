@@ -15,9 +15,7 @@ function Recipe({
   return (
     <div className={`recipe ${intoPlanning}`}>
       <div className="header">
-        <div className="name">
-          {recipe.name} ({recipe.id})
-        </div>
+        <div className="name">{recipe.name}</div>
         {!isIntoModal && (
           <div className="deleteRecipe" onClick={() => deleteRecipe(recipe)}>
             <FontAwesomeIcon icon={["fas", "trash-alt"]} />

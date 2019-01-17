@@ -63,8 +63,8 @@ class AppRouter extends Component {
   /// FROM RECIPE
   ///////////////////////////////////////////
 
-  createRecipe = () => {
-    const recipe = Utils.fakeRecipe();
+  createRecipe = recipe => {
+    // const recipe = Utils.fakeRecipe();
     Services.createRecipe(recipe).then(newRecipe => {
       this.setState({ recipes: [...this.state.recipes, newRecipe] });
     });
