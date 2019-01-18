@@ -1,5 +1,5 @@
 import React from "react";
-import Recipe from "./Recipe";
+import SingleRecipe from "./SingleRecipe";
 
 function ListRecipe({
   recipes,
@@ -13,7 +13,7 @@ function ListRecipe({
   return (
     <div className="listRecipe">
       {recipes.map((recipe, index) => (
-        <Recipe
+        <SingleRecipe
           className="recipe"
           key={recipe.id}
           recipe={recipe}

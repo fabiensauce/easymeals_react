@@ -1,10 +1,8 @@
 import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import "./ContainerRecipe.scss";
 import ListRecipe from "./ListRecipe";
-import CreationModule from "./CreationModule";
+import Creation from "./creation/Creation";
 
 function ContainerRecipe({
   cssPage,
@@ -28,7 +26,7 @@ function ContainerRecipe({
         deleteRecipe={deleteRecipe}
         isIntoModal={isIntoModal}
       />
-      <CreationModule createRecipe={createRecipe} />
+      <Creation createRecipe={createRecipe} />
     </div>
   );
 }

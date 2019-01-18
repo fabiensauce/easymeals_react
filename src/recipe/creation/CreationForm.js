@@ -4,18 +4,21 @@ import _ from "lodash";
 import { IngredientForm, StepForm } from "./CreationSubForm";
 
 class CreationForm extends Component {
-  state = {
-    inputName: "",
-    inputNbPers: 4,
-    inputIngQty: "",
-    inputIngFood: "",
-    ingredients: [],
-    inputQty: 1,
-    inputUnit: "",
-    inputFood: "",
-    steps: [],
-    inputStep: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputName: "",
+      inputNbPers: 4,
+      inputIngQty: "",
+      inputIngFood: "",
+      ingredients: [],
+      inputQty: 1,
+      inputUnit: "",
+      inputFood: "",
+      steps: [],
+      inputStep: ""
+    };
+  }
 
   ///////////////////////////////////////////
   /// EVENTS - all Arrow fx for binding !

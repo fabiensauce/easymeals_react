@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ChooseNbPerson from "../planning/ChooseNbPerson";
-function Recipe({
+function SingleRecipe({
   recipe,
   toogleFavorite,
   openModalPlanning,
@@ -84,4 +84,4 @@ function Recipe({
   );
 }
 
-export default Recipe;
+export default SingleRecipe;

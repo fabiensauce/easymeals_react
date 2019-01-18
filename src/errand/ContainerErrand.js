@@ -7,11 +7,14 @@ import "./containerErrand.scss";
 import { _computeErrands } from "./utilsErrand";
 
 class ContainerErrand extends Component {
-  state = {
-    classicErrands: [],
-    customErrands: [],
-    isLoadClassicErrands: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      classicErrands: [],
+      customErrands: [],
+      isLoadClassicErrands: false
+    };
+  }
 
   componentDidMount() {
     let { cssPage, setCssPage } = this.props;

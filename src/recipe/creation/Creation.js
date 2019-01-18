@@ -4,15 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import CreationForm from "./CreationForm";
 
-class CreationModule extends Component {
-  state = { onCreationForm: false };
-
-  componentDidMount() {
-    // let { cssPage, setCssPage } = this.props;
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
+class Creation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { onCreationForm: false };
   }
 
   // Arrow fx for binding
@@ -49,4 +44,4 @@ class CreationModule extends Component {
   }
 }
 
-export default CreationModule;
+export default Creation;

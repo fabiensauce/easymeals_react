@@ -19,18 +19,21 @@ library.add(fas, far);
 Modal.setAppElement("#root");
 
 class AppRouter extends Component {
-  state = {
-    cssPage: "home",
-    recipes: [],
-    nbPerson: undefined,
-    mealsDB: [],
-    meals: [],
-    isModalPlanningOpen: false,
-    isModalRecipeOpen: false,
-    recipesMeal: [],
-    recipeForPlanning: undefined,
-    idMealOpenModal: undefined
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      cssPage: "home",
+      recipes: [],
+      nbPerson: undefined,
+      mealsDB: [],
+      meals: [],
+      isModalPlanningOpen: false,
+      isModalRecipeOpen: false,
+      recipesMeal: [],
+      recipeForPlanning: undefined,
+      idMealOpenModal: undefined
+    };
+  }
 
   componentDidMount() {
     Services.getNbPerson().then(dataNbPerson => {
