@@ -5,7 +5,7 @@ function ListRecipe({
   recipes,
   toogleFavorite,
   openModalPlanning,
-  removeRecipeFromPlanning,
+  removeRecipeOfPlanning,
   deleteRecipe,
   isIntoModal,
   changeNbPerson
@@ -19,7 +19,7 @@ function ListRecipe({
           recipe={recipe}
           toogleFavorite={toogleFavorite}
           openModalPlanning={openModalPlanning}
-          removeRecipeFromPlanning={removeRecipeFromPlanning}
+          removeRecipeOfPlanning={removeRecipeOfPlanning}
           deleteRecipe={deleteRecipe}
           isIntoModal={isIntoModal}
           changeNbPerson={changeNbPerson}

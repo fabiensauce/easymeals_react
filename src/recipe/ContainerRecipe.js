@@ -11,7 +11,7 @@ function ContainerRecipe({
   createRecipe,
   toogleFavorite,
   openModalPlanning,
-  removeRecipeFromPlanning,
+  removeRecipeOfPlanning,
   deleteRecipe,
   isIntoModal
 }) {
@@ -22,7 +22,7 @@ function ContainerRecipe({
         recipes={recipes}
         toogleFavorite={toogleFavorite}
         openModalPlanning={openModalPlanning}
-        removeRecipeFromPlanning={removeRecipeFromPlanning}
+        removeRecipeOfPlanning={removeRecipeOfPlanning}
         deleteRecipe={deleteRecipe}
         isIntoModal={isIntoModal}
       />

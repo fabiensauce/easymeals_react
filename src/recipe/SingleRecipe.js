@@ -6,7 +6,7 @@ function SingleRecipe({
   recipe,
   toogleFavorite,
   openModalPlanning,
-  removeRecipeFromPlanning,
+  removeRecipeOfPlanning,
   deleteRecipe,
   isIntoModal,
   changeNbPerson
@@ -48,7 +48,7 @@ function SingleRecipe({
           {recipe.isIntoPlanning ? (
             <div
               className="removeFromPlanning"
-              onClick={() => removeRecipeFromPlanning(recipe)}
+              onClick={() => removeRecipeOfPlanning(recipe)}
             >
               <FontAwesomeIcon icon="minus-square" />
             </div>
