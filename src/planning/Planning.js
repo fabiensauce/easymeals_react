@@ -1,5 +1,5 @@
 import React from "react";
-import Meal from "./Meal";
+import SingleMeal from "./SingleMeal";
 
 function Planning({ meals, nbPersonGlobal, onClickMeal }) {
   const isLunch = idMeal => idMeal < 20;
@@ -32,7 +32,7 @@ function Planning({ meals, nbPersonGlobal, onClickMeal }) {
                 {meals.map(
                   (meal, index) =>
                     isLunch(meal.id) && (
-                      <Meal
+                      <SingleMeal
                         key={index}
                         meal={meal}
                         nbPersonGlobal={nbPersonGlobal}
@@ -46,7 +46,7 @@ function Planning({ meals, nbPersonGlobal, onClickMeal }) {
                 {meals.map(
                   (meal, index) =>
                     isDinner(meal.id) && (
-                      <Meal
+                      <SingleMeal
                         key={index}
                         meal={meal}
                         nbPersonGlobal={nbPersonGlobal}

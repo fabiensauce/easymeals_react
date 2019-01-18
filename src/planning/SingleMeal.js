@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Meal({ meal, nbPersonGlobal, onClickMeal }) {
+function SingleMeal({ meal, nbPersonGlobal, onClickMeal }) {
   const displayNbPers = recipe => {
     return (
       nbPersonGlobal &&
@@ -26,4 +26,4 @@ function Meal({ meal, nbPersonGlobal, onClickMeal }) {
   );
 }
 
-export default Meal;
+export default SingleMeal;
