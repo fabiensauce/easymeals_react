@@ -5,7 +5,6 @@ import "./AppRouter.scss";
 import ContainerHome from "./home/ContainerHome.js";
 import ContainerRecipe from "./recipe/ContainerRecipe.js";
 import ContainerPlanning from "./planning/ContainerPlanning.js";
-import Planning from "./planning/Planning";
 import ContainerErrand from "./errand/ContainerErrand";
 import Services from "./services/Services";
 import Utils from "./Utils";
@@ -13,23 +12,17 @@ import Utils from "./Utils";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import Modal from "react-modal";
 library.add(fas, far);
-Modal.setAppElement("#root");
 
 class AppRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cssPage: "home",
-
       nbPerson: undefined,
       recipes: [],
       mealsDB: [],
-      meals: [],
-
-      isModalPlanningOpen: false,
-      recipeForPlanning: undefined
+      meals: []
     };
   }
 
@@ -97,10 +90,6 @@ class AppRouter extends Component {
     }
   };
 
-  openModalPlanning = recipe => {
-    this.setState({ isModalPlanningOpen: true, recipeForPlanning: recipe });
-  };
-
   removeRecipeOfPlanning = recipe => {
     const { recipes, nbPerson: nbP, mealsDB } = this.state;
     const newMealDB = Utils.removeFromPlanning(recipe, mealsDB);
@@ -116,13 +105,8 @@ class AppRouter extends Component {
   /// FROM MODAL PLANNING (open from Recipe)
   ///////////////////////////////////////////
 
-  closeModalPlanning = () => {
-    this.setState({ isModalPlanningOpen: false });
-  };
-
-  mealPlanningChosen = meal => {
-    this.closeModalPlanning();
-    const { recipes, nbPerson: nbP, mealsDB, recipeForPlanning } = this.state;
+  mealPlanningChosen = (meal, recipeForPlanning) => {
+    const { recipes, nbPerson: nbP, mealsDB } = this.state;
     recipeForPlanning.isIntoPlanning = true;
     let newMealDB = mealsDB.find(mealDB => mealDB.id === meal.id);
     newMealDB.recipes.push({ id: recipeForPlanning.id });
@@ -210,10 +194,10 @@ class AppRouter extends Component {
                   recipes={this.state.recipes}
                   createRecipe={this.createRecipe}
                   toogleFavorite={this.toogleFavorite}
-                  openModalPlanning={this.openModalPlanning}
                   removeRecipeOfPlanning={this.removeRecipeOfPlanning}
                   deleteRecipe={this.deleteRecipe}
-                  isIntoModal={false}
+                  meals={this.state.meals}
+                  mealPlanningChosen={this.mealPlanningChosen}
                 />
               )}
             />
@@ -243,19 +227,6 @@ class AppRouter extends Component {
               )}
             />
           </div>
-
-          <Modal
-            isOpen={this.state.isModalPlanningOpen}
-            shouldCloseOnOverlayClick={true}
-            onRequestClose={this.closeModalPlanning}
-            className="modal modalPlanning"
-            overlayClassName="modalOverlay"
-          >
-            <Planning
-              meals={this.state.meals}
-              onClickMeal={this.mealPlanningChosen}
-            />
-          </Modal>
         </div>
       </Router>
     );

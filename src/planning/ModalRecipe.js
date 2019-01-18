@@ -1,7 +1,5 @@
 import React from "react";
-
 import ListRecipe from "../recipe/ListRecipe";
-
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 
