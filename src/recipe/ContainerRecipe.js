@@ -4,6 +4,7 @@ import "./ContainerRecipe.scss";
 import ListRecipe from "./ListRecipe";
 import Creation from "./creation/Creation";
 import ModalPlanning from "./ModalPlanning";
+import Services from "../services/Services";
 
 class ContainerRecipe extends Component {
   constructor(props) {
@@ -19,6 +20,27 @@ class ContainerRecipe extends Component {
     if (cssPage !== "recipe") setCssPage("recipe");
   }
 
+  createRecipe = recipe => {
+    Services.createRecipe(recipe).then(newRecipe => {
+      this.props.updateStateRecipes([...this.props.recipes, newRecipe]);
+    });
+  };
+
+  toogleFavorite = recipe => {
+    recipe.isFavorite = !recipe.isFavorite;
+    Services.updateRecipe(recipe.id, recipe).then(() => {
+      this.props.updateStateRecipes(this.props.recipes);
+    });
+  };
+
+  deleteRecipe = recipe => {
+    const newRecipes = this.props.recipes.filter(r => r.id !== recipe.id);
+    Services.deleteRecipe(recipe.id).then(() => {
+      this.props.updateStateRecipes(newRecipes);
+      if (recipe.isIntoPlanning) this.props.removeRecipeOfMealsDB(recipe);
+    });
+  };
+
   openModalPlanning = recipe => {
     this.setState({ isModalPlanningOpen: true, recipeForPlanning: recipe });
   };
@@ -29,37 +51,30 @@ class ContainerRecipe extends Component {
   closeModalPlanning = () => {
     this.setState({ isModalPlanningOpen: false });
   };
-  mealPlanningChosen = meal => {
+
+  mealPlanningChosenFromModal = meal => {
     this.closeModalPlanning();
-    this.props.mealPlanningChosen(meal, this.state.recipeForPlanning);
+    this.props.mealPlanningChosenFromModal(meal, this.state.recipeForPlanning);
   };
+
   render() {
-    const {
-      recipes,
-      createRecipe,
-      toogleFavorite,
-      removeRecipeOfPlanning,
-      deleteRecipe,
-      meals
-    } = this.props;
-    const { isModalPlanningOpen } = this.state;
     return (
       <div className="containerRecipe">
         <ListRecipe
-          recipes={recipes}
-          toogleFavorite={toogleFavorite}
+          recipes={this.props.recipes}
+          toogleFavorite={this.toogleFavorite}
           openModalPlanning={this.openModalPlanning}
-          removeRecipeOfPlanning={removeRecipeOfPlanning}
-          deleteRecipe={deleteRecipe}
+          removeRecipeOfPlanning={this.props.removeRecipeOfPlanning}
+          deleteRecipe={this.deleteRecipe}
           isIntoModal={false}
         />
-        <Creation createRecipe={createRecipe} />
+        <Creation createRecipe={this.createRecipe} />
 
         <ModalPlanning
-          meals={meals}
-          isOpen={isModalPlanningOpen}
+          meals={this.props.meals}
+          isOpen={this.state.isModalPlanningOpen}
           close={this.closeModalPlanning}
-          mealPlanningChosen={this.mealPlanningChosen}
+          mealPlanningChosen={this.mealPlanningChosenFromModal}
         />
       </div>
     );

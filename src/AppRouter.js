@@ -57,55 +57,27 @@ class AppRouter extends Component {
   /// FROM RECIPE
   ///////////////////////////////////////////
 
-  createRecipe = recipe => {
-    // const recipe = Utils.fakeRecipe();
-    Services.createRecipe(recipe).then(newRecipe => {
-      this.setState({ recipes: [...this.state.recipes, newRecipe] });
-    });
-  };
-
-  toogleFavorite = recipe => {
-    recipe.isFavorite = !recipe.isFavorite;
-    Services.updateRecipe(recipe.id, recipe).then(() => {
-      this.setState({ recipes: this.state.recipes });
-    });
-  };
-
-  deleteRecipe = recipe => {
-    const { recipes, nbPerson: nbP, mealsDB } = this.state;
-    if (recipe.isIntoPlanning) {
-      const newMealDB = Utils.removeFromPlanning(recipe, mealsDB);
-      const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, nbP);
-      const newRecipes = recipes.filter(r => r.id !== recipe.id);
-      Services.deleteRecipe(recipe.id).then(() => {
-        Services.updateMeal(newMealDB.id, newMealDB).then(() => {
-          this.setState({ recipes: newRecipes, mealsDB, meals: newMeals });
-        });
-      });
-    } else {
-      const newRecipes = recipes.filter(r => r.id !== recipe.id);
-      Services.deleteRecipe(recipe.id).then(() => {
-        this.setState({ recipes: newRecipes });
-      });
-    }
+  updateStateRecipes = recipes => {
+    this.setState({ recipes });
   };
 
   removeRecipeOfPlanning = recipe => {
+    recipe.isIntoPlanning = false;
+    Services.updateRecipe(recipe.id, recipe).then(() => {
+      this.setState({ recipes: this.state.recipes });
+      this.removeRecipeOfMealsDB(recipe);
+    });
+  };
+  removeRecipeOfMealsDB = recipe => {
     const { recipes, nbPerson: nbP, mealsDB } = this.state;
     const newMealDB = Utils.removeFromPlanning(recipe, mealsDB);
     const newMeals = Utils.computeMealsFromMealsDB(mealsDB, recipes, nbP);
-    recipe.isIntoPlanning = false;
-    Services.updateRecipe(recipe.id, recipe).then(() => {
-      Services.updateMeal(newMealDB.id, newMealDB).then(() => {
-        this.setState({ recipes, mealsDB, meals: newMeals });
-      });
+    Services.updateMeal(newMealDB.id, newMealDB).then(() => {
+      this.setState({ mealsDB, meals: newMeals });
     });
   };
 
-  /// FROM MODAL PLANNING (open from Recipe)
-  ///////////////////////////////////////////
-
-  mealPlanningChosen = (meal, recipeForPlanning) => {
+  mealPlanningChosenFromModal = (meal, recipeForPlanning) => {
     const { recipes, nbPerson: nbP, mealsDB } = this.state;
     recipeForPlanning.isIntoPlanning = true;
     let newMealDB = mealsDB.find(mealDB => mealDB.id === meal.id);
@@ -120,6 +92,12 @@ class AppRouter extends Component {
 
   /// FROM PLANNING
   ///////////////////////////////////////////
+
+  removeRecipeFromModal = recipeMeal => {
+    // recipeMeal is a copy of recipe
+    let recipe = this.state.recipes.find(r => r.id === recipeMeal.id);
+    this.removeRecipeOfPlanning(recipe);
+  };
 
   changeNbPerson = newNb => {
     if (newNb <= 0) return;
@@ -142,12 +120,6 @@ class AppRouter extends Component {
     return newMeals;
   };
 
-  removeRecipeFromModal = recipeMeal => {
-    // recipeMeal is a copy of recipe
-    let recipe = this.state.recipes.find(r => r.id === recipeMeal.id);
-    this.removeRecipeOfPlanning(recipe);
-  };
-
   ///////////////////////////////////////////
   /// VIEW
   ///////////////////////////////////////////
@@ -159,13 +131,13 @@ class AppRouter extends Component {
           <ul className={`nav ${this.state.cssPage}`}>
             <li className="liEasyMeal">EasyMeals</li>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Home</Link>{" "}
             </li>
             <li>
-              <Link to="/recipe">Recipe</Link>
+              <Link to="/recipe">Recipe</Link>{" "}
             </li>
             <li>
-              <Link to="/planning">Planning</Link>
+              <Link to="/planning">Planning</Link>{" "}
             </li>
             <li>
               <Link to="/errand">Errand</Link>
@@ -192,12 +164,11 @@ class AppRouter extends Component {
                   cssPage={this.state.cssPage}
                   setCssPage={this.setCssPage}
                   recipes={this.state.recipes}
-                  createRecipe={this.createRecipe}
-                  toogleFavorite={this.toogleFavorite}
-                  removeRecipeOfPlanning={this.removeRecipeOfPlanning}
-                  deleteRecipe={this.deleteRecipe}
                   meals={this.state.meals}
-                  mealPlanningChosen={this.mealPlanningChosen}
+                  updateStateRecipes={this.updateStateRecipes}
+                  removeRecipeOfPlanning={this.removeRecipeOfPlanning}
+                  removeRecipeOfMealsDB={this.removeRecipeOfMealsDB}
+                  mealPlanningChosenFromModal={this.mealPlanningChosenFromModal}
                 />
               )}
             />
