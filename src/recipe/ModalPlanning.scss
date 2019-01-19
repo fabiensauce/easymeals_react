@@ -1,0 +1,50 @@
+.modal {
+  position: absolute;
+  width: 600px;
+  top: 150px;
+  left: calc((100vw - 650px) / 2);
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.modal:focus {
+  outline: 0;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(140, 140, 140, 0.7);
+}
+.modalPlanning {
+  width: 950px;
+  left: calc((100vw - 950px) / 2);
+  // right: 100px;
+  // bottom: 100px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  .wrapPlanning {
+    .table_whole {
+      th {
+        background-color: #ffb366;
+      }
+      td {
+        .meal {
+          .recipeName {
+            background-color: #ffeee6;
+            .nbPersonDiff {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+      td:hover {
+        background-color: #ffeee6;
+        .recipeName {
+          background-color: #fff8f5;
+        }
+      }
+    }
+  }
+}

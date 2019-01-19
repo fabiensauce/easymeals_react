@@ -1,5 +1,6 @@
 import React from "react";
 import SingleRecipe from "./SingleRecipe";
+import "./ListRecipe.scss";
 
 function ListRecipe({
   recipes,

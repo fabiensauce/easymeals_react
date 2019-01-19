@@ -1,0 +1,21 @@
+.createRecipe {
+  margin: auto;
+  width: 650px;
+  padding: 20px 0;
+  font-size: 20px;
+  .divBtnCreate {
+    font-size: 22px;
+    .txtCreate {
+      margin-left: 20px;
+    }
+    .btnCreate {
+      float: right;
+      cursor: pointer;
+      margin-right: 20px;
+      font-size: 28px;
+    }
+    .btnCreate:hover {
+      color: #ffcc99;
+    }
+  }
+}

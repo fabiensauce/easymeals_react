@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-// import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import CreationForm from "./CreationForm";
+import "./Creation.scss";
 
 class Creation extends Component {
   constructor(props) {

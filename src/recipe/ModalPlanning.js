@@ -1,5 +1,6 @@
 import React from "react";
 import Planning from "../planning/Planning";
+import "./ModalPlanning.scss";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
 

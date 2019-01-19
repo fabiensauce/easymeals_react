@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./ContainerPlanning.scss";
 import Planning from "./Planning";
 import ChooseNbPerson from "./ChooseNbPerson";

@@ -1,7 +1,5 @@
 import React from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import "./home.scss";
 
 function ContainerHome({ cssPage, setCssPage }) {

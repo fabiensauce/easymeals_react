@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Services from "../services/Services";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import "./containerErrand.scss";
 import { _computeErrands } from "./utilsErrand";
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { IngredientForm, StepForm } from "./CreationSubForm";
+import "./CreationForm.scss";
 
 class CreationForm extends Component {
   constructor(props) {

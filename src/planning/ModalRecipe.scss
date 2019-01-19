@@ -1,0 +1,35 @@
+.modal {
+  position: absolute;
+  width: 600px;
+  top: 150px;
+  left: calc((100vw - 650px) / 2);
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.modal:focus {
+  outline: 0;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(140, 140, 140, 0.7);
+}
+
+.modalRecipe {
+  top: 76px;
+  padding: 30px;
+  width: 650px;
+  max-height: 500px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background-color: #282c34;
+  color: white;
+  .listRecipe {
+    .recipe:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

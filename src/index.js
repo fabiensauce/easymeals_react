@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import AppRouter from "./AppRouter";
 import * as serviceWorker from "./services/serviceWorker";
 

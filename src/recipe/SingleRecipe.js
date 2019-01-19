@@ -1,7 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import "./SingleRecipe.scss";
 import ChooseNbPerson from "../planning/ChooseNbPerson";
+
 function SingleRecipe({
   recipe,
   toogleFavorite,

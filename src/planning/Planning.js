@@ -1,5 +1,6 @@
 import React from "react";
 import SingleMeal from "./SingleMeal";
+import "./Planning.scss";
 
 function Planning({ meals, nbPersonGlobal, onClickMeal }) {
   const isLunch = idMeal => idMeal < 20;

@@ -1,0 +1,70 @@
+.ingredientsWrapper {
+  display: inline-block;
+  width: 45%;
+  vertical-align: top;
+  .ingredients {
+    .headerIngredient {
+      .inputQty {
+        display: inline-block;
+        width: 50px;
+        margin-right: 8px;
+      }
+      .inputUnit {
+        display: inline-block;
+        width: 30px;
+        margin-right: 8px;
+      }
+      .inputFood {
+        display: inline-block;
+        width: 120px;
+        margin-right: 10px;
+      }
+      .addBtn {
+        display: inline-block;
+        cursor: pointer;
+      }
+      .addBtn:hover {
+        color: #ffcc99;
+      }
+    }
+    .listIngredient {
+      margin-bottom: 5px;
+    }
+  }
+}
+.stepsWrapper {
+  display: inline-block;
+  width: 53%;
+  vertical-align: top;
+  .steps {
+    padding-left: 30px;
+    border-left: 1px solid #a6a6a6;
+    .headerStep {
+      .inputStep {
+        display: inline-block;
+        margin-right: 10px;
+        width: 280px;
+      }
+      .addBtn {
+        display: inline-block;
+        cursor: pointer;
+      }
+      .addBtn:hover {
+        color: #ffcc99;
+      }
+    }
+    .listStep {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.removeElem {
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 10px;
+  font-size: 13px;
+}
+.removeElem:hover {
+  color: #ff9999;
+}
