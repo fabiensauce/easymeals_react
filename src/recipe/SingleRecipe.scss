@@ -58,11 +58,11 @@
         cursor: pointer;
       }
       .addIntoPlanning:hover {
-        color: #969fe9;
+        color: #ffb366; // #969fe9;
       }
       .removeFromPlanning {
         cursor: pointer;
-        color: #969fe9;
+        color: #ffb366;
       }
       .removeFromPlanning:hover {
         color: #e6e6e6;
@@ -96,8 +96,8 @@
 }
 
 .recipe.isIntoPlanning {
-  border: 1px solid #969fe9;
+  border: 1px solid #ffbf80;
   .header {
-    border-bottom: 1px solid #969fe9;
+    border-bottom: 1px solid #ffbf80;
   }
 }

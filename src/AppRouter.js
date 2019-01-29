@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import "./Global.scss";
 import "./AppRouter.scss";
 import ContainerHome from "./home/ContainerHome.js";
 import ContainerRecipe from "./recipe/ContainerRecipe.js";
@@ -8,7 +8,6 @@ import ContainerPlanning from "./planning/ContainerPlanning.js";
 import ContainerErrand from "./errand/ContainerErrand";
 import Services from "./services/Services";
 import Utils from "./Utils";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";

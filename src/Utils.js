@@ -31,21 +31,21 @@ const Utils = {
     );
     _.remove(newMealDB.recipes, recipeDB => recipeDB.id === recipeRemove.id);
     return newMealDB;
-  },
-
-  fakeRecipe: () => {
-    return {
-      name: "salade CESAR ",
-      isFavorite: false,
-      nbPerson: 14,
-      ingredients: [
-        { qty: 3, unit: "g", food: "butter" },
-        { qty: 100, unit: "g", food: "flou" },
-        { qty: 1, unit: "l", food: "milk" }
-      ],
-      description: "blablablak",
-      steps: ["mix flour and eggs", "add slowly milk"]
-    };
   }
+
+  // fakeRecipe: () => {
+  //   return {
+  //     name: "salade CESAR ",
+  //     isFavorite: false,
+  //     nbPerson: 14,
+  //     ingredients: [
+  //       { qty: 3, unit: "g", food: "butter" },
+  //       { qty: 100, unit: "g", food: "flou" },
+  //       { qty: 1, unit: "l", food: "milk" }
+  //     ],
+  //     description: "blablablak",
+  //     steps: ["mix flour and eggs", "add slowly milk"]
+  //   };
+  // }
 };
 export default Utils;

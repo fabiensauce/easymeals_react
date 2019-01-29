@@ -28,6 +28,13 @@
   background-color: #282c34;
   color: white;
   .listRecipe {
+    margin-bottom: 0;
+    .recipe {
+      border: 1px solid #969fe9;
+      .header {
+        border-bottom: 1px solid #969fe9;
+      }
+    }
     .recipe:last-child {
       margin-bottom: 0;
     }
