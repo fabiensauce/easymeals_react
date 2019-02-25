@@ -46,6 +46,12 @@ const Utils = {
       description: "blablablak",
       steps: ["mix flour and eggs", "add slowly milk"]
     };
+  },
+
+  fctBranch777: () => {
+      return 'mouahaha'
   }
+
+
 };
 export default Utils;
