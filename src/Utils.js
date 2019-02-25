@@ -48,8 +48,12 @@ const Utils = {
     };
   },
 
+  fctBranch777: () => {
+      return 'mouahaha'
+  },
   fctMaster: () => {
-    return 'ahah master';
+      return 'ahah master';
   }
+ 
 };
 export default Utils;
