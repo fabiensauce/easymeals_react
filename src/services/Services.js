@@ -38,7 +38,8 @@ const delete_ = url => {
 };
 
 const Services = {
-  createRecipe: recipe => post("http://localhost:3004/recipes", recipe),
+  const URL = 'http://localhost:3004/'
+  createRecipe: recipe => post(`${URL}recipes`, recipe),
   getRecipes: () => get("http://localhost:3004/recipes"),
   updateRecipe: (id, recp) => put(`http://localhost:3004/recipes/${id}`, recp),
   deleteRecipe: id => delete_(`http://localhost:3004/recipes/${id}`),
