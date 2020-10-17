@@ -10,7 +10,8 @@ class ContainerRecipe extends Component {
     super(props);
     this.state = {
       isModalPlanningOpen: false,
-      recipeForPlanning: undefined
+      recipeForPlanning: undefined,
+      searchText: ""
     };
   }
 
@@ -56,11 +57,33 @@ class ContainerRecipe extends Component {
     this.props.mealPlanningChosenFromModal(meal, this.state.recipeForPlanning);
   };
 
+  handleSearchTextChange = e => {
+    this.setState({ searchText: e.target.value });
+  };
+
   render() {
+    const recipes = this.props.recipes.filter(recipe => {
+      if (recipe.name.indexOf(this.state.searchText) !== -1) return recipe;
+      else {
+        for (let ing of recipe.ingredients) {
+          if (ing.food.indexOf(this.state.searchText) !== -1) return recipe;
+        }
+      }
+      return undefined;
+    });
+
     return (
       <div className="containerRecipe">
+        <input
+          type="text"
+          placeholder="Search Recipe, Ingredient..."
+          value={this.state.searchText}
+          onChange={this.handleSearchTextChange}
+        />
+        <div>nb recipes : {recipes.length}</div>
+
         <ListRecipe
-          recipes={this.props.recipes}
+          recipes={recipes}
           toogleFavorite={this.toogleFavorite}
           openModalPlanning={this.openModalPlanning}
           removeRecipeOfPlanning={this.props.removeRecipeOfPlanning}
